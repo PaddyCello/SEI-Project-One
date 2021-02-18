@@ -1,0 +1,15 @@
+body {
+  background-color: #808080;
+}
+
+.grid-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 132px;
+}
+
+.cell {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #000000;
+}
