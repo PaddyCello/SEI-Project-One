@@ -11,9 +11,13 @@ function init() {
   function makeGrid(gridArea) {
     for (let i = 0; i < gridArea; i++) {
       const cell = document.createElement('div')
-      
+      cell.classList.add('cell')
+      cell.innerText = i
+      gridWrapper.appendChild(cell)
+      cells.push(cell)
     }
   }
+  makeGrid(gridArea)
 
 
 

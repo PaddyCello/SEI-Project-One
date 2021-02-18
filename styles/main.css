@@ -5,11 +5,11 @@ body {
 .grid-wrapper {
   display: flex;
   flex-wrap: wrap;
-  width: 132px;
+  width: 300px;
 }
 
 .cell {
-  width: 10px;
-  height: 10px;
+  width: 30px;
+  height: 30px;
   border: 2px solid #000000;
 }
