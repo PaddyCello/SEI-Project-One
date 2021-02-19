@@ -52,11 +52,19 @@ function init() {
     })
   }
 
-  getRectangle(zigZagW)
+  function removeRectangle(array) {
+    array.forEach(item => {
+      item.classList.remove('rectangle')
+    })
+  }
+  getRectangle(rectangleArray[0])
+  document.addEventListener('keyup', turnShape)
 
-
-
-
+  function turnShape(event) {
+    if (event.keyCode === 32) {
+      removeRectangle(rectangleArray[0])
+    }
+  }
 
 
 
