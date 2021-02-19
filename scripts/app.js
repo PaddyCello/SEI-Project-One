@@ -68,6 +68,7 @@ function init() {
   } 
   getShape(currentShape)
   document.addEventListener('keyup', processShape)
+  document.addEventListener('keydown', shapeDown)
 
   //* ROTATOR FUNCTION
   function turnShape() {
@@ -103,6 +104,14 @@ function init() {
       console.log('invalid key')
     }
   }  
+  //* KEYDOWN EVALUATOR
+  function shapeDown(event) {
+    if (event.keyCode === 40) {
+      removeShape(currentShape)
+      currentPos += width
+      console.log(currentPos)
+    }
+  }
 
 }
 
