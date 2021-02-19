@@ -63,6 +63,7 @@ function init() {
   function turnShape(event) {
     if (event.keyCode === 32) {
       removeRectangle(rectangleArray[0])
+      getRectangle(rectangleArray[1])
     }
   }
 
