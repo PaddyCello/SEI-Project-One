@@ -15,3 +15,7 @@ body {
   border: 1px solid #000000;
   margin: 0;
 }
+
+.rectangle {
+  background-color: #000000;
+}

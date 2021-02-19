@@ -23,7 +23,9 @@ function init() {
   }
   makeGrid(gridArea)
 
-
+  rectangle.forEach(cell => {
+    cell.classList.add('rectangle')
+  })
 
 
 
