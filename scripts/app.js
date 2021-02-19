@@ -8,7 +8,7 @@ function init() {
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
   const startPosition = 40
-  const currentPos = startPosition
+  let currentPos = startPosition
 
   function makeGrid(gridArea) {
     for (let i = 0; i < gridArea; i++) {
@@ -46,6 +46,10 @@ function init() {
   const sidewaysTArray = [sidewaysTN, sidewaysTE, sidewaysTS, sidewaysTW]
   const zigZagArray = [zigZagN, zigZagE, zigZagS, zigZagW]
 
+  let currentArray = rectangleArray
+  let currentShape = rectangleArray[0]
+  
+
   function getRectangle(array) {
     array.forEach(item => {
       item.classList.add('rectangle')
@@ -58,21 +62,26 @@ function init() {
       item.classList.remove('rectangle')
     })
   } 
-  getRectangle(rectangleArray[0])
+  getRectangle(currentShape)
   document.addEventListener('keyup', processShape)
 
   //* LEAVING THIS TEMPORARILY WHILE I SORT OUT SOME UNEXPECTED OBSTACLES
   function turnShape() {
-    removeRectangle(rectangleArray[0])
-    getRectangle(rectangleArray[1])
+    console.log('space')
   }
   //* BRB
   
   function processShape(event) {
     if (event.keyCode === 32) {
       turnShape() 
+    } else if (event.keyCode === 39) {
+      console.log('right')
+    } else if (event.keyCode === 37) {
+      console.log('left')
+    } else {
+      console.log('invalid key')
     }
-  }
+  }  
   
 
 
