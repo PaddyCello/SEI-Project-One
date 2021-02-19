@@ -7,10 +7,10 @@ function init() {
   const gridArea = width * height
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
-  const startPosition = cells[4]
-  let currentPosition = startPosition
+  const startPosition = 4
+  const currentPos = startPosition
 
-  const rectangle = [cells[currentPosition], cells[currentPosition + width], cells[currentPosition + (width * 2)], cells[currentPosition + (width * 3)]]
+  
 
   function makeGrid(gridArea) {
     for (let i = 0; i < gridArea; i++) {
@@ -23,11 +23,15 @@ function init() {
   }
   makeGrid(gridArea)
 
-  rectangle.forEach(cell => {
-    cell.classList.add('rectangle')
-  })
+  const rectangle = [cells[currentPos], cells[currentPos + width], cells[currentPos + (width * 2)], cells[currentPos + (width * 3)]]
+  console.log(rectangle)
+  function getRectangle(array) {
+    array.forEach(item => {
+      item.classList.add('rectangle')
+    })
+  }
 
-
+  getRectangle(rectangle)
 
 
 
