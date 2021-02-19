@@ -10,8 +10,10 @@ function init() {
   const cells = []
   let startPosition = 40
   let currentPos = startPosition
+  document.addEventListener('keyup', processShape)
 
-  function makeGrid(currentPos) {
+
+  function makeGrid() {
     for (let i = 0; i < gridArea; i++) {
       const cell = document.createElement('div')
       cell.classList.add('cell')
@@ -24,24 +26,24 @@ function init() {
 
   //* ARRAYS OF SHAPE CONFIGURATIONS
   const rectangleN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + (width * 3))]
-  const squareN = [cells[currentPos], cells[currentPos + 1], cells[currentPos + width], cells[currentPos + width + 1]]
-  const sidewaysTN = [cells[currentPos], cells[currentPos + width], cells[currentPos + (width * 2)], cells[currentPos + width + 1]]
-  const zigZagN = [cells[currentPos], cells[currentPos + width], cells[currentPos + 1 + (width * 2)], cells[currentPos + width + 1]]
+  const squareN = [currentPos, (currentPos + 1), (currentPos + width), (currentPos + width + 1)]
+  const sidewaysTN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + width + 1)]
+  const zigZagN = [(currentPos), (currentPos + width), (currentPos + 1 + (width * 2)), (currentPos + width + 1)]
 
-  const rectangleE = [cells[currentPos], cells[currentPos - 1], cells[currentPos - 2], cells[currentPos - 3]]
-  const squareE = [cells[currentPos], cells[currentPos - 1], cells[currentPos + width - 1], cells[currentPos + width]]
-  const sidewaysTE = [cells[currentPos], cells[currentPos - 1], cells[currentPos + width - 1], cells[currentPos - 2]]
-  const zigZagE = [cells[currentPos], cells[currentPos - 1], cells[currentPos + width - 1], cells[currentPos + width - 2]]
+  const rectangleE = [currentPos, (currentPos - 1), (currentPos - 2), (currentPos - 3)]
+  const squareE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos + width)]
+  const sidewaysTE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos - 2)]
+  const zigZagE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos + width - 2)]
 
-  const rectangleS = [cells[currentPos], cells[currentPos - width], cells[currentPos - (width * 2)], cells[currentPos - (width * 3)]]
-  const squareS = [cells[currentPos], cells[currentPos - 1], cells[currentPos - width], cells[currentPos - (width + 1)]]
-  const sidewaysTS = [cells[currentPos], cells[currentPos - width], cells[currentPos - (width * 2)], cells[currentPos - (width + 1)]]
-  const zigZagS = [cells[currentPos], cells[currentPos - width], cells[currentPos - 1 - (width * 2)], cells[currentPos - (width + 1)]]
+  const rectangleS = [currentPos, (currentPos - width), (currentPos - (width * 2)), (currentPos - (width * 3))]
+  const squareS = [currentPos, (currentPos - 1), (currentPos - width), (currentPos - (width + 1))]
+  const sidewaysTS = [currentPos, (currentPos - width), (currentPos - (width * 2)), (currentPos - (width + 1))]
+  const zigZagS = [currentPos, (currentPos - width), (currentPos - 1 - (width * 2)), (currentPos - (width + 1))]
 
-  const rectangleW = [cells[currentPos], cells[currentPos + 1], cells[currentPos + 2], cells[currentPos + 3]]
-  const squareW = [cells[currentPos], cells[currentPos + 1], cells[currentPos - width], cells[currentPos - (width - 1)]]
-  const sidewaysTW = [cells[currentPos], cells[currentPos + 1], cells[currentPos + 2], cells[currentPos - (width - 1)]]
-  const zigZagW = [cells[currentPos], cells[currentPos - (width - 1)], cells[currentPos + 1], cells[currentPos - (width - 2)]]
+  const rectangleW = [currentPos, (currentPos + 1), (currentPos + 2), (currentPos + 3)]
+  const squareW = [currentPos, (currentPos + 1), (currentPos - width), (currentPos - (width - 1))]
+  const sidewaysTW = [currentPos, (currentPos + 1), (currentPos + 2), (currentPos - (width - 1))]
+  const zigZagW = [currentPos, (currentPos - (width - 1)), (currentPos + 1), (currentPos - (width - 2))]
 
   //* ARRAYS OF SHAPES IN ALL ROTATIONS
   const rectangleArray = [rectangleN, rectangleE, rectangleS, rectangleW]
@@ -68,9 +70,7 @@ function init() {
     })
   } 
   addShape(currentShape)
-  document.addEventListener('keyup', processShape)
-  document.addEventListener('keydown', shapeDown)
-
+  
   //* ROTATOR FUNCTION
   function turnShape() {
     if (currentIndex < 3) {
@@ -86,19 +86,22 @@ function init() {
   //* RIGHT MOVE FUNCTION (IN PROGRESS)
   function moveRight(array) {
     array.forEach(item => {
-      cells[item + 1].classList.add('rectangle')
+      item++
+      cells[item].classList.add('rectangle')
     })
   }
   //* LEFT MOVE FUNCTION (IN PROGRESS)
   function moveLeft(array) {
     array.forEach(item => {
-      cells[item - 1].classList.add('rectangle')
+      item--
+      cells[item].classList.add('rectangle')
     })
   }
   //* MOVE DOWN FUNCTION (IN PROGRESS)
   function moveDown(array) {
     array.forEach(item => {
-      cells[item + width].classList.add('rectangle')
+      item += width
+      cells[item].classList.add('rectangle')
     })
   }
   //* KEYUP EVALUATOR
@@ -113,18 +116,15 @@ function init() {
       removeShape(currentShape)
       currentPos--
       moveLeft(currentShape)
+    } else if (event.keyCode === 40) {
+      removeShape(currentShape)
+      currentPos += width
+      moveDown(currentShape)
     } else {
       console.log('invalid key')
     }
   }  
-  //* KEYDOWN EVALUATOR
-  function shapeDown(event) {
-    if (event.keyCode === 40) {
-      removeShape(currentShape)
-      currentPos += width
-      moveDown(currentShape)
-    }
-  }
+  
 
 }
 
