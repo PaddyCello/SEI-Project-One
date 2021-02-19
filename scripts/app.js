@@ -51,22 +51,29 @@ function init() {
       item.classList.add('rectangle')
     })
   }
+  
 
   function removeRectangle(array) {
     array.forEach(item => {
       item.classList.remove('rectangle')
     })
-  }
+  } 
   getRectangle(rectangleArray[0])
-  document.addEventListener('keyup', turnShape)
+  document.addEventListener('keyup', processShape)
 
-  function turnShape(event) {
+  //* LEAVING THIS TEMPORARILY WHILE I SORT OUT SOME UNEXPECTED OBSTACLES
+  function turnShape() {
+    removeRectangle(rectangleArray[0])
+    getRectangle(rectangleArray[1])
+  }
+  //* BRB
+  
+  function processShape(event) {
     if (event.keyCode === 32) {
-      removeRectangle(rectangleArray[0])
-      getRectangle(rectangleArray[1])
+      turnShape() 
     }
   }
-
+  
 
 
 }
