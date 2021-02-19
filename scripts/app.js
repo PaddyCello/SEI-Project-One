@@ -24,6 +24,7 @@ function init() {
   const rectangle = [cells[currentPos], cells[currentPos + width], cells[currentPos + (width * 2)], cells[currentPos + (width * 3)]]
   const square = [cells[currentPos], cells[currentPos + 1], cells[currentPos + width], cells[currentPos + width + 1]]
   const sidewaysT = [cells[currentPos], cells[currentPos + width], cells[currentPos + (width * 2)], cells[currentPos + width + 1]]
+  const zigZag = [cells[currentPos], cells[currentPos + width], cells[currentPos + 1 + (width * 2)], cells[currentPos + width + 1]]
 
   function getRectangle(array) {
     array.forEach(item => {
@@ -31,7 +32,7 @@ function init() {
     })
   }
 
-  getRectangle(sidewaysT)
+  getRectangle(zigZag)
 
 
 
