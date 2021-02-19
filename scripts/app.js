@@ -10,8 +10,6 @@ function init() {
   const startPosition = 4
   const currentPos = startPosition
 
-  
-
   function makeGrid(gridArea) {
     for (let i = 0; i < gridArea; i++) {
       const cell = document.createElement('div')
@@ -24,14 +22,15 @@ function init() {
   makeGrid(gridArea)
 
   const rectangle = [cells[currentPos], cells[currentPos + width], cells[currentPos + (width * 2)], cells[currentPos + (width * 3)]]
-  console.log(rectangle)
+  const square = [cells[currentPos], cells[currentPos + 1], cells[currentPos + width], cells[currentPos + width + 1]]
+
   function getRectangle(array) {
     array.forEach(item => {
       item.classList.add('rectangle')
     })
   }
 
-  getRectangle(rectangle)
+  getRectangle(square)
 
 
 
