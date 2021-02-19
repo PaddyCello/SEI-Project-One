@@ -2,6 +2,7 @@ function init() {
 
   console.log('Javascript connected')
 
+  //* GRID CONSTRUCTOR
   const width = 9
   const height = 9
   const gridArea = width * height
@@ -21,6 +22,7 @@ function init() {
   }
   makeGrid(gridArea)
 
+  //* ARRAYS OF SHAPE CONFIGURATIONS
   const rectangleN = [cells[currentPos], cells[currentPos + width], cells[currentPos + (width * 2)], cells[currentPos + (width * 3)]]
   const squareN = [cells[currentPos], cells[currentPos + 1], cells[currentPos + width], cells[currentPos + width + 1]]
   const sidewaysTN = [cells[currentPos], cells[currentPos + width], cells[currentPos + (width * 2)], cells[currentPos + width + 1]]
@@ -41,21 +43,23 @@ function init() {
   const sidewaysTW = [cells[currentPos], cells[currentPos + 1], cells[currentPos + 2], cells[currentPos - (width - 1)]]
   const zigZagW = [cells[currentPos], cells[currentPos - (width - 1)], cells[currentPos + 1], cells[currentPos - (width - 2)]]
 
+  //* ARRAYS OF SHAPES IN ALL ROTATIONS
   const rectangleArray = [rectangleN, rectangleE, rectangleS, rectangleW]
   const squareArray = [squareN, squareE, squareS, squareW]
   const sidewaysTArray = [sidewaysTN, sidewaysTE, sidewaysTS, sidewaysTW]
   const zigZagArray = [zigZagN, zigZagE, zigZagS, zigZagW]
 
+  //* ASSIGN VARIABLES TO CHOSEN SHAPES
   let currentArray = rectangleArray
   let currentIndex = 0
   const currentShape = currentArray[currentIndex]
 
+  //* GET AND REMOVE SHAPES
   function getShape(array) {
     array.forEach(item => {
       item.classList.add('rectangle')
     })
   }
-  
 
   function removeShape(array) {
     array.forEach(item => {
@@ -65,7 +69,7 @@ function init() {
   getShape(currentShape)
   document.addEventListener('keyup', processShape)
 
-  //* LEAVING THIS TEMPORARILY WHILE I SORT OUT SOME UNEXPECTED OBSTACLES
+  //* ROTATOR FUNCTION
   function turnShape() {
     if (currentIndex < 3) {
       removeShape(currentArray[currentIndex])
@@ -77,15 +81,24 @@ function init() {
       getShape(currentArray[currentIndex])
     }  
   }
-  //* BRB
-  
+  //* RIGHT MOVE FUNCTION (IN PROGRESS)
+  function moveRight() {
+    removeShape(currentShape)
+    currentPos++
+  }
+  //* LEFT MOVE FUNCTION (IN PROGRESS)
+  function moveLeft() {
+    removeShape(currentShape)
+    currentPos--
+  }
+  //* KEYUP EVALUATOR
   function processShape(event) {
     if (event.keyCode === 32) {
       turnShape() 
     } else if (event.keyCode === 39) {
-      currentPos++
+      moveRight()
     } else if (event.keyCode === 37) {
-      currentPos--
+      moveLeft()
     } else {
       console.log('invalid key')
     }
