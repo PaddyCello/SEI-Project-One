@@ -41,6 +41,11 @@ function init() {
   const sidewaysTW = [cells[currentPos], cells[currentPos + 1], cells[currentPos + 2], cells[currentPos - (width - 1)]]
   const zigZagW = [cells[currentPos], cells[currentPos - (width - 1)], cells[currentPos + 1], cells[currentPos - (width - 2)]]
 
+  const rectangleArray = [rectangleN, rectangleE, rectangleS, rectangleW]
+  const squareArray = [squareN, squareE, squareS, squareW]
+  const sidewaysTArray = [sidewaysTN, sidewaysTE, sidewaysTS, sidewaysTW]
+  const zigZagArray = [zigZagN, zigZagE, zigZagS, zigZagW]
+
   function getRectangle(array) {
     array.forEach(item => {
       item.classList.add('rectangle')
