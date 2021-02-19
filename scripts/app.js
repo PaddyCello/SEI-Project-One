@@ -11,7 +11,7 @@ function init() {
   let startPosition = 40
   let currentPos = startPosition
 
-  function makeGrid(gridArea) {
+  function makeGrid(currentPos) {
     for (let i = 0; i < gridArea; i++) {
       const cell = document.createElement('div')
       cell.classList.add('cell')
@@ -20,10 +20,10 @@ function init() {
       cells.push(cell)
     }
   }
-  makeGrid(gridArea)
+  makeGrid(currentPos)
 
   //* ARRAYS OF SHAPE CONFIGURATIONS
-  const rectangleN = [cells[currentPos], cells[currentPos + width], cells[currentPos + (width * 2)], cells[currentPos + (width * 3)]]
+  const rectangleN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + (width * 3))]
   const squareN = [cells[currentPos], cells[currentPos + 1], cells[currentPos + width], cells[currentPos + width + 1]]
   const sidewaysTN = [cells[currentPos], cells[currentPos + width], cells[currentPos + (width * 2)], cells[currentPos + width + 1]]
   const zigZagN = [cells[currentPos], cells[currentPos + width], cells[currentPos + 1 + (width * 2)], cells[currentPos + width + 1]]
@@ -55,18 +55,19 @@ function init() {
   const currentShape = currentArray[currentIndex]
 
   //* GET AND REMOVE SHAPES
-  function getShape(array) {
+  function addShape(array) {
     array.forEach(item => {
-      item.classList.add('rectangle')
+      cells[item].classList.add('rectangle')
     })
   }
 
+  
   function removeShape(array) {
     array.forEach(item => {
-      item.classList.remove('rectangle')
+      cells[item].classList.remove('rectangle')
     })
   } 
-  getShape(currentShape)
+  addShape(currentShape)
   document.addEventListener('keyup', processShape)
   document.addEventListener('keydown', shapeDown)
 
@@ -75,31 +76,43 @@ function init() {
     if (currentIndex < 3) {
       removeShape(currentArray[currentIndex])
       currentIndex++
-      getShape(currentArray[currentIndex])
+      addShape(currentArray[currentIndex])
     }  else {
       removeShape(currentArray[currentIndex])
       currentIndex = 0
-      getShape(currentArray[currentIndex])
+      addShape(currentArray[currentIndex])
     }  
   }
   //* RIGHT MOVE FUNCTION (IN PROGRESS)
-  function moveRight() {
-    removeShape(currentShape)
-    currentPos++
+  function moveRight(array) {
+    array.forEach(item => {
+      cells[item + 1].classList.add('rectangle')
+    })
   }
   //* LEFT MOVE FUNCTION (IN PROGRESS)
-  function moveLeft() {
-    removeShape(currentShape)
-    currentPos--
+  function moveLeft(array) {
+    array.forEach(item => {
+      cells[item - 1].classList.add('rectangle')
+    })
+  }
+  //* MOVE DOWN FUNCTION (IN PROGRESS)
+  function moveDown(array) {
+    array.forEach(item => {
+      cells[item + width].classList.add('rectangle')
+    })
   }
   //* KEYUP EVALUATOR
   function processShape(event) {
     if (event.keyCode === 32) {
       turnShape() 
     } else if (event.keyCode === 39) {
-      moveRight()
+      removeShape(currentShape)
+      currentPos++
+      moveRight(currentShape)
     } else if (event.keyCode === 37) {
-      moveLeft()
+      removeShape(currentShape)
+      currentPos--
+      moveLeft(currentShape)
     } else {
       console.log('invalid key')
     }
@@ -109,7 +122,7 @@ function init() {
     if (event.keyCode === 40) {
       removeShape(currentShape)
       currentPos += width
-      console.log(currentPos)
+      moveDown(currentShape)
     }
   }
 
