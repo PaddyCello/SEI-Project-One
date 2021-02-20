@@ -19,3 +19,6 @@ body {
 .tetrimino {
   background-color: #000000;
 }
+.stopped {
+  background-color: #ff0000;
+}
