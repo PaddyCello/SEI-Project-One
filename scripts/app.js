@@ -45,7 +45,6 @@ function init() {
   let currentArray = rectangleArray
   let currentIndex = 0
   let currentShape = currentArray[currentIndex]
-
  
   //* GRID CONSTRUCTOR
 
@@ -60,7 +59,7 @@ function init() {
     addShape(currentShape, startPosition)
   }
   makeGrid(currentPos)
-
+  
   //* MIGHT BE USEFUL LATER
   // function generateShape(array, position) {
   //   currentShape = array[Math.floor(Math.random() * 4)][0]
@@ -83,7 +82,7 @@ function init() {
   } 
   
   
-  //* ROTATOR FUNCTION
+  //* ROTATOR FUNCTION (IN PROGRESS)
   function turnShape() {
     if (currentIndex < 3) {
       removeShape(currentArray[currentIndex])
@@ -95,7 +94,7 @@ function init() {
       addShape(currentArray[currentIndex])
     }  
   }
-  //* RIGHT MOVE FUNCTION (IN PROGRESS)
+  //* RIGHT MOVE FUNCTION
   function moveRight() {
     removeShape(currentShape)
     currentPos++
@@ -107,7 +106,7 @@ function init() {
       cells[item].classList.add('tetrimino')
     })
   }
-  //* LEFT MOVE FUNCTION (IN PROGRESS)
+  //* LEFT MOVE FUNCTION
   function moveLeft() {
     removeShape(currentShape)
     currentPos--
@@ -119,7 +118,7 @@ function init() {
       cells[item].classList.add('tetrimino')
     })
   }
-  //* MOVE DOWN FUNCTION (IN PROGRESS)
+  //* MOVE DOWN FUNCTION
   function moveDown() {
     removeShape(currentShape)
     currentPos += width
@@ -136,17 +135,17 @@ function init() {
     if (event.keyCode === 32) {
       turnShape() 
     } else if (event.keyCode === 39 && currentShape.every(item => {
-      return item % width !== (width - 1)
+      return item % width !== (width - 1) && !(cells[item + 1].classList.contains('stopped'))
     })) {
       currentPos++
       console.log(currentPos)
       moveRight()
     } else if (event.keyCode === 37 && currentShape.every(item => {
-      return item % width !== 0
+      return item % width !== 0 && !(cells[item - 1].classList.contains('stopped'))
     })) {
       moveLeft()
     } else if (event.keyCode === 40 && currentShape.every(item => {
-      return (item + width) < gridArea
+      return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
     })) {
       moveDown()
     } else {
