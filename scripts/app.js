@@ -10,8 +10,12 @@ function init() {
   const cells = []
   const startPosition = 4
   let currentPos = startPosition
+  let currentShape
+  let nextShape
+
   document.addEventListener('keyup', processShape)
   document.querySelector('button').addEventListener('click', startGame)
+
 
   //* ARRAYS OF SHAPE CONFIGURATIONS
   const rectangleN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + (width * 3))]
@@ -45,8 +49,6 @@ function init() {
   //* ASSIGN VARIABLES TO CHOSEN SHAPES
   let currentArray = rectangleArray
   let currentIndex = 0
-  let currentShape
-  let nextShape
  
   //* GRID CONSTRUCTOR
 
@@ -62,14 +64,12 @@ function init() {
   }
   makeGrid(currentPos)
   
-  //* GENERATE NEXT SHAPE (IN PROGRESS)
+  //* GENERATE NEXT SHAPE
   function createShape(array, position) {
     nextShape = array[Math.floor(Math.random() * array.length)][0]
     currentPos = position
     return nextShape
   }
-  
-  //*
  
   //* GET AND REMOVE SHAPES
   function addShape(array) {
@@ -101,7 +101,7 @@ function init() {
   //* RIGHT MOVE FUNCTION
   function moveRight() {
     removeShape(currentShape)
-    currentPos++
+    //currentPos++
     currentShape = currentShape.map(item => {
       item++
       return item
@@ -113,7 +113,7 @@ function init() {
   //* LEFT MOVE FUNCTION
   function moveLeft() {
     removeShape(currentShape)
-    currentPos--
+    //currentPos--
     currentShape = currentShape.map(item => {
       item--
       return item
@@ -125,7 +125,7 @@ function init() {
   //* MOVE DOWN FUNCTION
   function moveDown() {
     removeShape(currentShape)
-    currentPos += width
+    //currentPos += width
     currentShape = currentShape.map(item => {
       item += width
       return item
@@ -148,7 +148,7 @@ function init() {
       throwShapes()
     } else {
       clearInterval(shapeFallId)
-      window.prompt('You lose!')
+      window.alert('You lose!')
     }
   }
   
@@ -181,13 +181,13 @@ function init() {
     throwShapes()
   }
   
-  //* SETINTERVAL (IN PROGRESS)
+  //* SETINTERVAL
   function throwShapes() {
     clearInterval(shapeFallId)
     createShape(starterArray, startPosition)
     currentShape = nextShape
     addShape(currentShape)
-    
+
     shapeFallId = setInterval(() => {
       if (currentShape.every(item => {
         return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
