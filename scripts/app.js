@@ -11,6 +11,7 @@ function init() {
   const startPosition = 4
   let currentPos = startPosition
   document.addEventListener('keyup', processShape)
+  document.querySelector('button').addEventListener('click', startGame)
 
   //* ARRAYS OF SHAPE CONFIGURATIONS
   const rectangleN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + (width * 3))]
@@ -62,7 +63,7 @@ function init() {
   }
   makeGrid(currentPos)
   
-  //* MIGHT BE USEFUL LATER
+  //* GENERATE NEXT SHAPE (IN PROGRESS)
   function createShape(array, position) {
     const nextShape = array[Math.floor(Math.random() * 4)][0]
     currentPos = position
@@ -142,8 +143,7 @@ function init() {
       cells[item].classList.add('stopped')
       return item
     })
-    currentShape = nextShape
-    addShape(currentShape)
+    throwShapes()
   }
   
   //* KEYUP EVALUATOR
@@ -170,10 +170,19 @@ function init() {
       console.log('invalid key')
     }
   }  
+  //* START GAME FUNCTION
+  function startGame(event) {
+    createShape(starterArray, startPosition)
+    throwShapes()
+  }
   
-  //* FIRST STEPS OF SETINTERVAL
+  //* SETINTERVAL (IN PROGRESS)
   function throwShapes() {
     clearInterval(shapeFallId)
+    currentShape = starterArray[Math.floor(Math.random() * 4)][0]
+    currentPos = startPosition
+
+    addShape(currentShape)
     shapeFallId = setInterval(() => {
       if (currentShape.every(item => {
         return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
@@ -184,7 +193,6 @@ function init() {
       }
     }, 1000)
   }
- //throwShapes()
 
 }
 
