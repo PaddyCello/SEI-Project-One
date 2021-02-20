@@ -96,31 +96,38 @@ function init() {
     }  
   }
   //* RIGHT MOVE FUNCTION (IN PROGRESS)
-  function moveRight(currentShape) {
+  function moveRight() {
     removeShape(currentShape)
     currentPos++
-    return currentShape.forEach(item => {
-      console.log(item)
+    currentShape = currentShape.map(item => {
       item++
-      console.log(item)
+      return item
+    })
+    currentShape.forEach(item => {
       cells[item].classList.add('tetrimino')
     })
   }
   //* LEFT MOVE FUNCTION (IN PROGRESS)
-  function moveLeft(array) {
+  function moveLeft() {
     removeShape(currentShape)
     currentPos--
-    array.forEach(item => {
+    currentShape = currentShape.map(item => {
       item--
+      return item
+    })
+    currentShape.forEach(item => {
       cells[item].classList.add('tetrimino')
     })
   }
   //* MOVE DOWN FUNCTION (IN PROGRESS)
-  function moveDown(array) {
+  function moveDown() {
     removeShape(currentShape)
     currentPos += width
-    array.forEach(item => {
+    currentShape = currentShape.map(item => {
       item += width
+      return item
+    })
+    currentShape.forEach(item => {
       cells[item].classList.add('tetrimino')
     })
   }
@@ -131,15 +138,17 @@ function init() {
     } else if (event.keyCode === 39 && currentShape.every(item => {
       return item % width !== (width - 1)
     })) {
-      moveRight(currentShape)
+      currentPos++
+      console.log(currentPos)
+      moveRight()
     } else if (event.keyCode === 37 && currentShape.every(item => {
       return item % width !== 0
     })) {
-      moveLeft(currentShape)
+      moveLeft()
     } else if (event.keyCode === 40 && currentShape.every(item => {
-      return (item + width - 1) < gridArea
+      return (item + width) < gridArea
     })) {
-      moveDown(currentShape)
+      moveDown()
     } else {
       console.log('invalid key')
     }
