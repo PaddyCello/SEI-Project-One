@@ -130,6 +130,19 @@ function init() {
       cells[item].classList.add('tetrimino')
     })
   }
+
+  //* EVALUATOR FOR SEEING IF SHAPE IS UNABLE TO DESCEND
+  function checkBlock() {
+    if (currentShape.some(item => {
+      return (item + width) > gridArea || cells[item + width].classList.contains('stopped')
+    })) {
+      currentShape.map(item => {
+        cells[item].classList.remove('tetrimino')
+        cells[item].classList.add('stopped')
+        return item
+      })
+    }
+  }
   //* KEYUP EVALUATOR
   function processShape(event) {
     if (event.keyCode === 32) {
@@ -150,6 +163,7 @@ function init() {
       moveDown()
     } else {
       console.log('invalid key')
+      checkBlock()
     }
   }  
   
