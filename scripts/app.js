@@ -69,16 +69,16 @@ function init() {
   //*
  
   //* GET AND REMOVE SHAPES
-  function addShape(array, position) {
+  function addShape(array) {
     array.forEach(item => {
-      cells[item].classList.add('rectangle')
+      cells[item].classList.add('tetrimino')
     })
   }
 
   
   function removeShape(array) {
     array.forEach(item => {
-      cells[item].classList.remove('rectangle')
+      cells[item].classList.remove('tetrimino')
     })
   } 
   
@@ -103,7 +103,7 @@ function init() {
       console.log(item)
       item++
       console.log(item)
-      cells[item].classList.add('rectangle')
+      cells[item].classList.add('tetrimino')
     })
   }
   //* LEFT MOVE FUNCTION (IN PROGRESS)
@@ -112,7 +112,7 @@ function init() {
     currentPos--
     array.forEach(item => {
       item--
-      cells[item].classList.add('rectangle')
+      cells[item].classList.add('tetrimino')
     })
   }
   //* MOVE DOWN FUNCTION (IN PROGRESS)
@@ -121,18 +121,24 @@ function init() {
     currentPos += width
     array.forEach(item => {
       item += width
-      cells[item].classList.add('rectangle')
+      cells[item].classList.add('tetrimino')
     })
   }
   //* KEYUP EVALUATOR
   function processShape(event) {
     if (event.keyCode === 32) {
       turnShape() 
-    } else if (event.keyCode === 39) {
+    } else if (event.keyCode === 39 && currentShape.every(item => {
+      return item % width !== (width - 1)
+    })) {
       moveRight(currentShape)
-    } else if (event.keyCode === 37) {
+    } else if (event.keyCode === 37 && currentShape.every(item => {
+      return item % width !== 0
+    })) {
       moveLeft(currentShape)
-    } else if (event.keyCode === 40) {
+    } else if (event.keyCode === 40 && currentShape.every(item => {
+      return (item + width - 1) < gridArea
+    })) {
       moveDown(currentShape)
     } else {
       console.log('invalid key')
