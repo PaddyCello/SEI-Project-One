@@ -59,7 +59,6 @@ function init() {
       cells.push(cell)
     }
     createShape(starterArray, startPosition)
-    addShape(currentShape)
   }
   makeGrid(currentPos)
   
@@ -138,12 +137,19 @@ function init() {
 
   //* EVALUATOR FOR SEEING IF SHAPE IS UNABLE TO DESCEND
   function makeStopped() {
-    currentShape.map(item => {
-      cells[item].classList.remove('tetrimino')
-      cells[item].classList.add('stopped')
-      return item
-    })
-    throwShapes()
+    if (currentShape.every(item => {
+      return !(cells[item].classList.contains('stopped'))
+    })) {
+      currentShape.map(item => {
+        cells[item].classList.remove('tetrimino')
+        cells[item].classList.add('stopped')
+        return item
+      })
+      throwShapes()
+    } else {
+      clearInterval(shapeFallId)
+      window.prompt('You lose!')
+    }
   }
   
   //* KEYUP EVALUATOR
