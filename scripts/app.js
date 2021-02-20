@@ -45,7 +45,7 @@ function init() {
   //* ASSIGN VARIABLES TO CHOSEN SHAPES
   let currentArray = rectangleArray
   let currentIndex = 0
-  let currentShape = rectangleArray[0]
+  let currentShape
   let nextShape
  
   //* GRID CONSTRUCTOR
@@ -64,7 +64,7 @@ function init() {
   
   //* GENERATE NEXT SHAPE (IN PROGRESS)
   function createShape(array, position) {
-    const nextShape = array[Math.floor(Math.random() * 4)][0]
+    nextShape = array[Math.floor(Math.random() * array.length)][0]
     currentPos = position
     return nextShape
   }
@@ -177,18 +177,17 @@ function init() {
     }
   }  
   //* START GAME FUNCTION
-  function startGame(event) {
-    createShape(starterArray, startPosition)
+  function startGame() {
     throwShapes()
   }
   
   //* SETINTERVAL (IN PROGRESS)
   function throwShapes() {
     clearInterval(shapeFallId)
-    currentShape = starterArray[Math.floor(Math.random() * 4)][0]
-    currentPos = startPosition
-
+    createShape(starterArray, startPosition)
+    currentShape = nextShape
     addShape(currentShape)
+    
     shapeFallId = setInterval(() => {
       if (currentShape.every(item => {
         return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
