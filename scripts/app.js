@@ -2,13 +2,13 @@ function init() {
 
   console.log('Javascript connected')
 
-  
+  let shapeFallId
   const width = 9
   const height = 9
   const gridArea = width * height
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
-  const startPosition = 40
+  const startPosition = 4
   let currentPos = startPosition
   document.addEventListener('keyup', processShape)
 
@@ -44,7 +44,8 @@ function init() {
   //* ASSIGN VARIABLES TO CHOSEN SHAPES
   let currentArray = rectangleArray
   let currentIndex = 0
-  let currentShape = currentArray[currentIndex]
+  let currentShape = rectangleArray[0]
+  let nextShape
  
   //* GRID CONSTRUCTOR
 
@@ -56,15 +57,18 @@ function init() {
       gridWrapper.appendChild(cell)
       cells.push(cell)
     }
-    addShape(currentShape, startPosition)
+    createShape(starterArray, startPosition)
+    addShape(currentShape)
   }
   makeGrid(currentPos)
   
   //* MIGHT BE USEFUL LATER
-  // function generateShape(array, position) {
-  //   currentShape = array[Math.floor(Math.random() * 4)][0]
-  // }
-  // generateShape(starterArray, currentPos)
+  function createShape(array, position) {
+    const nextShape = array[Math.floor(Math.random() * 4)][0]
+    currentPos = position
+    return nextShape
+  }
+  
   //*
  
   //* GET AND REMOVE SHAPES
@@ -92,7 +96,7 @@ function init() {
       removeShape(currentArray[currentIndex])
       currentIndex = 0
       addShape(currentArray[currentIndex])
-    }  
+    }
   }
   //* RIGHT MOVE FUNCTION
   function moveRight() {
@@ -132,17 +136,16 @@ function init() {
   }
 
   //* EVALUATOR FOR SEEING IF SHAPE IS UNABLE TO DESCEND
-  function checkBlock() {
-    if (currentShape.some(item => {
-      return (item + width) > gridArea || cells[item + width].classList.contains('stopped')
-    })) {
-      currentShape.map(item => {
-        cells[item].classList.remove('tetrimino')
-        cells[item].classList.add('stopped')
-        return item
-      })
-    }
+  function makeStopped() {
+    currentShape.map(item => {
+      cells[item].classList.remove('tetrimino')
+      cells[item].classList.add('stopped')
+      return item
+    })
+    currentShape = nextShape
+    addShape(currentShape)
   }
+  
   //* KEYUP EVALUATOR
   function processShape(event) {
     if (event.keyCode === 32) {
@@ -150,8 +153,6 @@ function init() {
     } else if (event.keyCode === 39 && currentShape.every(item => {
       return item % width !== (width - 1) && !(cells[item + 1].classList.contains('stopped'))
     })) {
-      currentPos++
-      console.log(currentPos)
       moveRight()
     } else if (event.keyCode === 37 && currentShape.every(item => {
       return item % width !== 0 && !(cells[item - 1].classList.contains('stopped'))
@@ -161,12 +162,29 @@ function init() {
       return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
     })) {
       moveDown()
+    } else if (event.keyCode === 40 && currentShape.some(item => {
+      return item > (gridArea - (width + 1)) || cells[item + width].classList.contains('stopped')
+    })) {
+      makeStopped()
     } else {
       console.log('invalid key')
-      checkBlock()
     }
   }  
   
+  //* FIRST STEPS OF SETINTERVAL
+  function throwShapes() {
+    clearInterval(shapeFallId)
+    shapeFallId = setInterval(() => {
+      if (currentShape.every(item => {
+        return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
+      })) {
+        moveDown()
+      } else {
+        makeStopped()
+      }
+    }, 1000)
+  }
+ //throwShapes()
 
 }
 
