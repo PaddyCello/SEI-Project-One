@@ -8,7 +8,7 @@ function init() {
   const gridArea = width * height
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
-  const startPosition = 4
+  const startPosition = Math.ceil(width / 2)
   let currentPos = startPosition
   let currentShape
   let nextShape
