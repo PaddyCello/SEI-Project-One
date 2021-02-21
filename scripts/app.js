@@ -12,6 +12,9 @@ function init() {
   let currentPos = startPosition
   let currentShape
   let nextShape
+  let score = 0
+  const scoreBoard = document.querySelector('.score')
+  scoreBoard.innerText = score
 
   document.addEventListener('keyup', processShape)
   document.querySelector('button').addEventListener('click', startGame)
@@ -142,6 +145,8 @@ function init() {
       if (rowCells.every(item => {
         return (item.classList.contains('stopped'))
       })) {
+        score += 100
+        scoreBoard.innerText = score
         rowCells = rowCells.map(item => {
           return item.classList.remove('stopped')
         })
