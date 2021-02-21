@@ -3,8 +3,8 @@ function init() {
   console.log('Javascript connected')
 
   let shapeFallId
-  const width = 9
-  const height = 9
+  const width = 11
+  const height = 20
   const gridArea = width * height
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
