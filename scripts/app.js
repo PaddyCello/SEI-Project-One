@@ -8,7 +8,7 @@ function init() {
   const gridArea = width * height
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
-  const startPosition = Math.floor(width / 2) * 10
+  const startPosition = Math.floor(width / 2)
   let currentPos = startPosition
   let currentShape
   let currentArray
@@ -50,7 +50,7 @@ function init() {
   const zigZagArray = [zigZagN, zigZagE, zigZagS, zigZagW]
 
   const starterArray = [rectangleArray, squareArray, sidewaysTArray, zigZagArray]
-  
+
   //* GRID CONSTRUCTOR
 
   function makeGrid() {
@@ -61,7 +61,6 @@ function init() {
       gridWrapper.appendChild(cell)
       cells.push(cell)
     }
-    createShape(starterArray, startPosition)
   }
   makeGrid(currentPos)
   
@@ -91,16 +90,22 @@ function init() {
   
   //* ROTATOR FUNCTION (IN PROGRESS)
   function turnShape() {
-    if (currentIndex < 3) {
+    if (currentIndex < 3 && currentArray[currentIndex + 1].every(item => {
+      return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
+    })) {
       removeShape(currentShape)
       currentIndex++
       currentShape = currentArray[currentIndex]
       addShape(currentShape)
-    }  else {
+    }  else if (currentIndex === 3 && currentArray[0].every(item => {
+      return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
+    })) {
       removeShape(currentShape)
       currentIndex = 0
       currentShape = currentArray[currentIndex]
       addShape(currentShape)
+    } else {
+      console.log('cannot rotate')
     }
   }
   //* RIGHT MOVE FUNCTION
