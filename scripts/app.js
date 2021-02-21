@@ -74,7 +74,7 @@ function init() {
       cells.push(cell)
     }
   }
-  makeGrid(currentPos)
+  makeGrid(gridArea)
   
   //* GENERATE NEXT SHAPE
   function createShape(array, position) {
