@@ -9,15 +9,18 @@ function init() {
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
   const startPosition = Math.floor(width / 2)
+  
   let currentPos = startPosition
   let currentShape
   let currentArray
-  let currentIndex
+  //let currentIndex
   let currentChoice
   let nextShape
   let score = 0
   const scoreBoard = document.querySelector('.score')
   scoreBoard.innerText = score
+  const compassDirections = ['N', 'E', 'S', 'W']
+  let compassDirection
 
   document.addEventListener('keyup', processShape)
   document.querySelector('button').addEventListener('click', startGame)
@@ -32,32 +35,33 @@ function init() {
   const lShapeN = [currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos + 1 + (width * 2)]
   const jShapeN = [currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos - 1 + (width * 2)]
  
-  const rectangleE = [currentPos, (currentPos - 1), (currentPos - 2), (currentPos - 3)]
-  const squareE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos + width)]
-  const sidewaysTE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos - 2)]
-  const zigZagE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos + width - 2)]
+  //const rectangleE = [currentPos, (currentPos - 1), (currentPos - 2), (currentPos - 3)]
+  // const squareE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos + width)]
+  // const sidewaysTE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos - 2)]
+  // const zigZagE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos + width - 2)]
  
-  const rectangleS = [currentPos, (currentPos - width), (currentPos - (width * 2)), (currentPos - (width * 3))]
-  const squareS = [currentPos, (currentPos - 1), (currentPos - width), (currentPos - (width + 1))]
-  const sidewaysTS = [currentPos, (currentPos - width), (currentPos - (width * 2)), (currentPos - (width + 1))]
-  const zigZagS = [currentPos, (currentPos - width), (currentPos - 1 - (width * 2)), (currentPos - (width + 1))]
+  // const rectangleS = [currentPos, (currentPos - width), (currentPos - (width * 2)), (currentPos - (width * 3))]
+  // const squareS = [currentPos, (currentPos - 1), (currentPos - width), (currentPos - (width + 1))]
+  // const sidewaysTS = [currentPos, (currentPos - width), (currentPos - (width * 2)), (currentPos - (width + 1))]
+  // const zigZagS = [currentPos, (currentPos - width), (currentPos - 1 - (width * 2)), (currentPos - (width + 1))]
  
-  const rectangleW = [currentPos, (currentPos + 1), (currentPos + 2), (currentPos + 3)]
-  const squareW = [currentPos, (currentPos + 1), (currentPos - width), (currentPos - (width - 1))]
-  const sidewaysTW = [currentPos, (currentPos + 1), (currentPos + 2), (currentPos - (width - 1))]
-  const zigZagW = [currentPos, (currentPos - (width - 1)), (currentPos + 1), (currentPos - (width - 2))]
+  // const rectangleW = [currentPos, (currentPos + 1), (currentPos + 2), (currentPos + 3)]
+  // const squareW = [currentPos, (currentPos + 1), (currentPos - width), (currentPos - (width - 1))]
+  // const sidewaysTW = [currentPos, (currentPos + 1), (currentPos + 2), (currentPos - (width - 1))]
+  // const zigZagW = [currentPos, (currentPos - (width - 1)), (currentPos + 1), (currentPos - (width - 2))]
  
   //* ARRAYS OF SHAPES IN ALL ROTATIONS
-  const rectangleArray = [rectangleN, rectangleE, rectangleS, rectangleW]
-  const squareArray = [squareN, squareE, squareS, squareW]
-  const sidewaysTArray = [sidewaysTN, sidewaysTE, sidewaysTS, sidewaysTW]
-  const zigZagArray = [zigZagN, zigZagE, zigZagS, zigZagW]
-  const zagZigArray = [zagZigN]
-  const lShapeArray = [lShapeN]
-  const jShapeArray = [jShapeN]
+  // const rectangleArray = [rectangleN, rectangleE, rectangleS, rectangleW]
+  // const squareArray = [squareN, squareE, squareS, squareW]
+  // const sidewaysTArray = [sidewaysTN, sidewaysTE, sidewaysTS, sidewaysTW]
+  // const zigZagArray = [zigZagN, zigZagE, zigZagS, zigZagW]
+  // const zagZigArray = [zagZigN]
+  // const lShapeArray = [lShapeN]
+  // const jShapeArray = [jShapeN]
 
-  const starterArray = [rectangleArray, squareArray, sidewaysTArray, zigZagArray, zagZigArray, lShapeArray, jShapeArray]
-  const colours = ['#000000', '#ffffff', '#ffd700', '#800000']
+  const starterArray = [rectangleN, squareN, sidewaysTN, zigZagN, zagZigN, lShapeN, jShapeN]
+  //* POTENTIAL SHAPE COLOURS
+  //const colours = ['#000000', '#ffffff', '#ffd700', '#800000']
 
   //* GRID CONSTRUCTOR
 
@@ -74,10 +78,10 @@ function init() {
   
   //* GENERATE NEXT SHAPE
   function createShape(array, position) {
-    currentIndex = 0
+    //currentIndex = 0
     currentChoice = Math.floor(Math.random() * array.length)
     currentArray = array[currentChoice]
-    nextShape = currentArray[currentIndex]
+    nextShape = currentArray//[currentIndex]
     currentPos = position
     return nextShape
   }
@@ -92,7 +96,7 @@ function init() {
     createShape(starterArray, startPosition)
     currentShape = nextShape
     addShape(currentShape)
-
+    compassDirection = compassDirections[0]
     shapeFallId = setInterval(() => {
       if (currentShape.every(item => {
         return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
@@ -140,33 +144,53 @@ function init() {
     } else {
       console.log('invalid key')
     }
-  }  
-  
-  
+  } 
+  function turnRectangle() {
+    if (compassDirection === compassDirections[0]) {
+      currentShape[1] = currentShape[1] - (width + 1)
+      currentShape[2] = currentShape[2] - ((width * 2) + 2)
+      currentShape[3] = currentShape[3] - ((width * 3) + 3)
+      compassDirection = compassDirections[1]
+      
+      return compassDirection, currentShape
+    } else if (compassDirection === compassDirections[1]) {
+      currentShape[1] = currentShape[1] - (width - 1)
+      currentShape[2] = currentShape[2] - ((width * 2) - 2)
+      currentShape[3] = currentShape[3] - ((width * 3) - 3)
+      compassDirection = compassDirections[2]
+      
+      return compassDirection, currentShape
+    }
+  }
   //* ROTATOR FUNCTION (IN PROGRESS)
   function turnShape() {
-    if (currentIndex < 3 && currentArray[currentIndex + 1].every(item => {
-      return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
-    })) {
+    if (currentChoice === 0) {
       removeShape(currentShape)
-      currentIndex++
-      currentShape = currentArray[currentIndex]
+      turnRectangle()
+      console.log(compassDirection)
       addShape(currentShape)
-    }  else if (currentIndex === 3 && currentArray[0].every(item => {
-      return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
-    })) {
-      removeShape(currentShape)
-      currentIndex = 0
-      currentShape = currentArray[currentIndex]
-      addShape(currentShape)
-    } else {
-      console.log('cannot rotate')
     }
+    // if (currentIndex < (currentArray.length - 1) && currentArray[currentIndex + 1].every(item => {
+    //   return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
+    // })) {
+    //   removeShape(currentShape)
+    //   currentIndex++
+    //   currentShape = currentArray[currentIndex]
+    //   addShape(currentShape)
+    // }  else if (currentIndex === 3 && currentArray[0].every(item => {
+    //   return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
+    // })) {
+    //   removeShape(currentShape)
+    //   currentIndex = 0
+    //   currentShape = currentArray[currentIndex]
+    //   addShape(currentShape)
+    // } else {
+    //   console.log('cannot rotate')
+    // }
   }
   //* RIGHT MOVE FUNCTION
   function moveRight() {
     removeShape(currentShape)
-    //currentPos++
     currentShape = currentShape.map(item => {
       item++
       return item
@@ -178,7 +202,6 @@ function init() {
   //* LEFT MOVE FUNCTION
   function moveLeft() {
     removeShape(currentShape)
-    //currentPos--
     currentShape = currentShape.map(item => {
       item--
       return item
