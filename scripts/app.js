@@ -134,6 +134,20 @@ function init() {
       cells[item].classList.add('tetrimino')
     })
   }
+  //* CHECK TO SEE IF ROW IS FULL
+  function checkRow() {
+    let rowCells = []
+    for (let i = 0; i < gridArea; i += width) {
+      rowCells = cells.slice(i, (i + width))
+      if (rowCells.every(item => {
+        return (item.classList.contains('stopped'))
+      })) {
+        rowCells = rowCells.map(item => {
+          return item.classList.remove('stopped')
+        })
+      }
+    }
+  }
 
   //* EVALUATOR FOR SEEING IF SHAPE IS UNABLE TO DESCEND
   function makeStopped() {
@@ -145,6 +159,7 @@ function init() {
         cells[item].classList.add('stopped')
         return item
       })
+      checkRow()
       throwShapes()
     } else {
       clearInterval(shapeFallId)
