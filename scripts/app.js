@@ -8,7 +8,7 @@ function init() {
   const gridArea = width * height
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
-  const startPosition = Math.ceil(width / 2)
+  const startPosition = Math.floor(width / 2)
   let currentPos = startPosition
   let currentShape
   let nextShape
@@ -145,6 +145,11 @@ function init() {
         rowCells = rowCells.map(item => {
           return item.classList.remove('stopped')
         })
+        for (let j = (i - 1); j >= 0; j--) {
+          if (cells[j].classList.contains('stopped')) {
+            cells[j].classList.remove('stopped')
+          }
+        }
       }
     }
   }
