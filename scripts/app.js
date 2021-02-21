@@ -13,6 +13,7 @@ function init() {
   let currentShape
   let currentArray
   let currentIndex
+  let currentChoice
   let nextShape
   let score = 0
   const scoreBoard = document.querySelector('.score')
@@ -50,6 +51,7 @@ function init() {
   const zigZagArray = [zigZagN, zigZagE, zigZagS, zigZagW]
 
   const starterArray = [rectangleArray, squareArray, sidewaysTArray, zigZagArray]
+  const colours = ['#000000', '#ffffff', '#ffd700', '#800000']
 
   //* GRID CONSTRUCTOR
 
@@ -57,7 +59,7 @@ function init() {
     for (let i = 0; i < gridArea; i++) {
       const cell = document.createElement('div')
       cell.classList.add('cell')
-      cell.innerText = i
+      //cell.innerText = i
       gridWrapper.appendChild(cell)
       cells.push(cell)
     }
@@ -67,7 +69,8 @@ function init() {
   //* GENERATE NEXT SHAPE
   function createShape(array, position) {
     currentIndex = 0
-    currentArray = array[Math.floor(Math.random() * array.length)]
+    currentChoice = Math.floor(Math.random() * array.length)
+    currentArray = array[currentChoice]
     nextShape = currentArray[currentIndex]
     currentPos = position
     return nextShape
