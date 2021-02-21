@@ -148,6 +148,7 @@ function init() {
         for (let j = (i - 1); j >= 0; j--) {
           if (cells[j].classList.contains('stopped')) {
             cells[j].classList.remove('stopped')
+            cells[j + width].classList.add('stopped')
           }
         }
       }
