@@ -72,6 +72,28 @@ function init() {
     currentPos = position
     return nextShape
   }
+  //* START GAME FUNCTION
+  function startGame() {
+    throwShapes()
+  }
+  
+  //* SETINTERVAL
+  function throwShapes() {
+    clearInterval(shapeFallId)
+    createShape(starterArray, startPosition)
+    currentShape = nextShape
+    addShape(currentShape)
+
+    shapeFallId = setInterval(() => {
+      if (currentShape.every(item => {
+        return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
+      })) {
+        moveDown()
+      } else {
+        makeStopped()
+      }
+    }, 1000)
+  }
  
   //* GET AND REMOVE SHAPES
   function addShape(array) {
@@ -86,6 +108,30 @@ function init() {
       cells[item].classList.remove('tetrimino')
     })
   } 
+  //* KEYUP EVALUATOR
+  function processShape(event) {
+    if (event.keyCode === 32) {
+      turnShape() 
+    } else if (event.keyCode === 39 && currentShape.every(item => {
+      return item % width !== (width - 1) && !(cells[item + 1].classList.contains('stopped'))
+    })) {
+      moveRight()
+    } else if (event.keyCode === 37 && currentShape.every(item => {
+      return item % width !== 0 && !(cells[item - 1].classList.contains('stopped'))
+    })) {
+      moveLeft()
+    } else if (event.keyCode === 40 && currentShape.every(item => {
+      return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
+    })) {
+      moveDown()
+    } else if (event.keyCode === 40 && currentShape.some(item => {
+      return item > (gridArea - (width + 1)) || cells[item + width].classList.contains('stopped')
+    })) {
+      makeStopped()
+    } else {
+      console.log('invalid key')
+    }
+  }  
   
   
   //* ROTATOR FUNCTION (IN PROGRESS)
@@ -144,6 +190,24 @@ function init() {
       cells[item].classList.add('tetrimino')
     })
   }
+  //* EVALUATOR FOR SEEING IF SHAPE IS UNABLE TO DESCEND
+  function makeStopped() {
+    if (currentShape.every(item => {
+      return !(cells[item].classList.contains('stopped'))
+    })) {
+      currentShape.map(item => {
+        cells[item].classList.remove('tetrimino')
+        cells[item].classList.add('stopped')
+        return item
+      })
+      checkRow()
+      throwShapes()
+    } else {
+      clearInterval(shapeFallId)
+      window.alert('You lose!')
+    }
+  }
+  
   //* CHECK TO SEE IF ROW IS FULL
   function checkRow() {
     let rowCells = []
@@ -167,70 +231,8 @@ function init() {
     }
   }
 
-  //* EVALUATOR FOR SEEING IF SHAPE IS UNABLE TO DESCEND
-  function makeStopped() {
-    if (currentShape.every(item => {
-      return !(cells[item].classList.contains('stopped'))
-    })) {
-      currentShape.map(item => {
-        cells[item].classList.remove('tetrimino')
-        cells[item].classList.add('stopped')
-        return item
-      })
-      checkRow()
-      throwShapes()
-    } else {
-      clearInterval(shapeFallId)
-      window.alert('You lose!')
-    }
-  }
   
-  //* KEYUP EVALUATOR
-  function processShape(event) {
-    if (event.keyCode === 32) {
-      turnShape() 
-    } else if (event.keyCode === 39 && currentShape.every(item => {
-      return item % width !== (width - 1) && !(cells[item + 1].classList.contains('stopped'))
-    })) {
-      moveRight()
-    } else if (event.keyCode === 37 && currentShape.every(item => {
-      return item % width !== 0 && !(cells[item - 1].classList.contains('stopped'))
-    })) {
-      moveLeft()
-    } else if (event.keyCode === 40 && currentShape.every(item => {
-      return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
-    })) {
-      moveDown()
-    } else if (event.keyCode === 40 && currentShape.some(item => {
-      return item > (gridArea - (width + 1)) || cells[item + width].classList.contains('stopped')
-    })) {
-      makeStopped()
-    } else {
-      console.log('invalid key')
-    }
-  }  
-  //* START GAME FUNCTION
-  function startGame() {
-    throwShapes()
-  }
   
-  //* SETINTERVAL
-  function throwShapes() {
-    clearInterval(shapeFallId)
-    createShape(starterArray, startPosition)
-    currentShape = nextShape
-    addShape(currentShape)
-
-    shapeFallId = setInterval(() => {
-      if (currentShape.every(item => {
-        return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
-      })) {
-        moveDown()
-      } else {
-        makeStopped()
-      }
-    }, 1000)
-  }
 
 }
 
