@@ -28,6 +28,9 @@ function init() {
   const squareN = [currentPos, (currentPos + 1), (currentPos + width), (currentPos + width + 1)]
   const sidewaysTN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + width + 1)]
   const zigZagN = [(currentPos), (currentPos + width), (currentPos + 1 + (width * 2)), (currentPos + width + 1)]
+  const zagZigN = [currentPos, (currentPos + width), (currentPos - 1 + width), (currentPos - 1 + (width * 2))]
+  const lShapeN = [currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos + 1 + (width * 2)]
+  const jShapeN = [currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos - 1 + (width * 2)]
  
   const rectangleE = [currentPos, (currentPos - 1), (currentPos - 2), (currentPos - 3)]
   const squareE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos + width)]
@@ -49,8 +52,11 @@ function init() {
   const squareArray = [squareN, squareE, squareS, squareW]
   const sidewaysTArray = [sidewaysTN, sidewaysTE, sidewaysTS, sidewaysTW]
   const zigZagArray = [zigZagN, zigZagE, zigZagS, zigZagW]
+  const zagZigArray = [zagZigN]
+  const lShapeArray = [lShapeN]
+  const jShapeArray = [jShapeN]
 
-  const starterArray = [rectangleArray, squareArray, sidewaysTArray, zigZagArray]
+  const starterArray = [rectangleArray, squareArray, sidewaysTArray, zigZagArray, zagZigArray, lShapeArray, jShapeArray]
   const colours = ['#000000', '#ffffff', '#ffd700', '#800000']
 
   //* GRID CONSTRUCTOR
