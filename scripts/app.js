@@ -80,7 +80,7 @@ function init() {
   //* GENERATE NEXT SHAPE
   function createShape(position) {
     nextShape = []
-    currentChoice = 3
+    currentChoice = 4
     //currentChoice = Math.floor(Math.random() * 7)
     if (currentChoice === 0) {
       makeRectangle()
@@ -193,7 +193,6 @@ function init() {
     }
   } 
   function turnRectangle() {
-    
     if (compassDirection === compassDirections[0]) {
       removeShape(cells)
       currentShape[1] = currentShape[1] - (width + 1)
@@ -224,6 +223,7 @@ function init() {
       addShape(currentShape)
     }
   }
+
   function turnSquare() {
     if (compassDirection === compassDirections[0]) {
       removeShape(cells)
@@ -255,6 +255,7 @@ function init() {
       addShape(currentShape)
     }
   }
+
   function turnSidewaysT() {
     if (compassDirection === compassDirections[0]) {
       removeShape(cells)
@@ -286,6 +287,7 @@ function init() {
       addShape(currentShape)
     }
   }
+
   function turnZigZag() {
     if (compassDirection === compassDirections[0]) {
       removeShape(cells)
@@ -317,6 +319,38 @@ function init() {
       addShape(currentShape)
     }
   }
+
+  function turnZagZig() {
+    if (compassDirection === compassDirections[0]) {
+      removeShape(cells)
+      currentShape[1] = currentShape[1] - (width + 1)
+      currentShape[2] = currentShape[2] - (width * 2)
+      currentShape[3] = currentShape[3] - ((width * 3) + 1)
+      compassDirection = compassDirections[1]
+      addShape(currentShape)
+    } else if (compassDirection === compassDirections[1]) {
+      removeShape(cells)
+      currentShape[1] = currentShape[1] - (width - 1)
+      currentShape[2] = currentShape[2] + 2
+      currentShape[3] = currentShape[3] - (width - 3)
+      compassDirection = compassDirections[2]
+      addShape(currentShape)
+    } else if (compassDirection === compassDirections[2]) {
+      removeShape(cells)
+      currentShape[1] = currentShape[1] + (width + 1)
+      currentShape[2] = currentShape[2] + (width * 2)
+      currentShape[3] = currentShape[3] + (width * 3) + 1
+      compassDirection = compassDirections[3]
+      addShape(currentShape)
+    } else if (compassDirection === compassDirections[3]) {
+      removeShape(cells)
+      currentShape[1] = currentShape[1] + (width - 1)
+      currentShape[2] = currentShape[2] - 2
+      currentShape[3] = currentShape[3] + (width - 3)
+      compassDirection = compassDirections[0]
+      addShape(currentShape)
+    }
+  }
   //* ROTATOR FUNCTION (IN PROGRESS)
   function turnShape() {
     if (currentChoice === 0) {
@@ -327,6 +361,8 @@ function init() {
       turnSidewaysT()
     } else if (currentChoice === 3) {
       turnZigZag()
+    } else if (currentChoice === 4) {
+      turnZagZig()
     }
     
     // if (compassDirection === 0) {
