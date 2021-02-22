@@ -84,6 +84,7 @@ function init() {
       makeRectangle()
     }
     currentPos = position
+    compassDirection = compassDirections[0]
     return nextShape
   }
   // function createShape(array, position) {
@@ -136,6 +137,7 @@ function init() {
   //* KEYUP EVALUATOR
   function processShape(event) {
     if (event.keyCode === 32) {
+      console.log(compassDirection)
       turnShape() 
     } else if (event.keyCode === 39 && currentShape.every(item => {
       return item % width !== (width - 1) && !(cells[item + 1].classList.contains('stopped'))
@@ -159,28 +161,29 @@ function init() {
   } 
   function turnRectangle() {
     if (compassDirection === compassDirections[0]) {
+      removeShape(currentShape)
       currentShape[1] = currentShape[1] - (width + 1)
       currentShape[2] = currentShape[2] - ((width * 2) + 2)
       currentShape[3] = currentShape[3] - ((width * 3) + 3)
       compassDirection = compassDirections[1]
-      
-      return compassDirection, currentShape
+      addShape(currentShape)
     } else if (compassDirection === compassDirections[1]) {
+      removeShape(currentShape)
       currentShape[1] = currentShape[1] - (width - 1)
       currentShape[2] = currentShape[2] - ((width * 2) - 2)
       currentShape[3] = currentShape[3] - ((width * 3) - 3)
       compassDirection = compassDirections[2]
       
-      return compassDirection, currentShape
+      addShape(currentShape)
     }
   }
   //* ROTATOR FUNCTION (IN PROGRESS)
   function turnShape() {
     if (currentChoice === 0) {
-      removeShape(currentShape)
+      
       turnRectangle()
       console.log(compassDirection)
-      addShape(currentShape)
+      
     }
     // if (currentIndex < (currentArray.length - 1) && currentArray[currentIndex + 1].every(item => {
     //   return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
