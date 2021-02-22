@@ -71,6 +71,7 @@ function init() {
       cell.classList.add('cell')
       //cell.innerText = i
       gridWrapper.appendChild(cell)
+      cell.innerText = i
       cells.push(cell)
     }
   }
@@ -79,6 +80,7 @@ function init() {
   //* GENERATE NEXT SHAPE
   function createShape(array, position) {
     nextShape = []
+    
     currentChoice = Math.floor(Math.random() * array.length)
     if (currentChoice === 0) {
       makeRectangle()
@@ -214,8 +216,8 @@ function init() {
     if (compassDirection === compassDirections[0]) {
       removeShape(cells)
       currentShape[1] = currentShape[1] + (width - 1)
-      currentShape[2] = currentShape[2] - (width * 5)
-      currentShape[3] = currentShape[3] - (width * 6)
+      currentShape[2] = currentShape[2] - 2
+      currentShape[3] = currentShape[3] - (width + 1)
       addShape(currentShape)
     }
   }
@@ -226,6 +228,29 @@ function init() {
     } else if (currentChoice === 1) {
       turnSquare()
     }
+    
+    // if (compassDirection === 0) {
+    //   currentShape = [currentPos]
+    //   if (cells[currentPos + width].classList.contains('tetrimino')) {
+    //     currentShape.push(currentPos - 1)
+    //     // cells[currentPos + width].classList.remove('tetrimino')
+    //     // cells[currentPos - 1].classList.add('tetrimino')
+    //   } 
+    //   if (cells[currentPos - (width * 2)].classList.contains('tetrimino')) {
+    //     currentShape.push(currentPos - 2)
+    //     // cells[currentPos - (width * 2)].classList.contains('tetrimino')
+    //     // cells[currentPos - 2].classList.add('tetrimino')
+    //   }
+    //   if (cells[currentPos - (width * 2)].classList.contains('tetrimino')) {
+    //     currentShape.push(currentPos - 3)
+    //     // cells[currentPos - (width * 3)].classList.contains('tetrimino')
+    //     // cells[currentPos - 3].classList.add('tetrimino')
+    //   }
+    //   removeShape(cells)
+    //   addShape(currentShape)
+    
+    // }
+
     // if (currentIndex < (currentArray.length - 1) && currentArray[currentIndex + 1].every(item => {
     //   return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
     // })) {
