@@ -27,13 +27,13 @@ function init() {
 
 
   //* ARRAYS OF SHAPE CONFIGURATIONS
-  const rectangleN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + (width * 3))]
-  const squareN = [currentPos, (currentPos + 1), (currentPos + width), (currentPos + width + 1)]
-  const sidewaysTN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + width + 1)]
-  const zigZagN = [(currentPos), (currentPos + width), (currentPos + 1 + (width * 2)), (currentPos + width + 1)]
-  const zagZigN = [currentPos, (currentPos + width), (currentPos - 1 + width), (currentPos - 1 + (width * 2))]
-  const lShapeN = [currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos + 1 + (width * 2)]
-  const jShapeN = [currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos - 1 + (width * 2)]
+  // const rectangleN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + (width * 3))]
+  // const squareN = [currentPos, (currentPos + 1), (currentPos + width), (currentPos + width + 1)]
+  // const sidewaysTN = [currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + width + 1)]
+  // const zigZagN = [(currentPos), (currentPos + width), (currentPos + 1 + (width * 2)), (currentPos + width + 1)]
+  // const zagZigN = [currentPos, (currentPos + width), (currentPos - 1 + width), (currentPos - 1 + (width * 2))]
+  // const lShapeN = [currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos + 1 + (width * 2)]
+  // const jShapeN = [currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos - 1 + (width * 2)]
  
   //const rectangleE = [currentPos, (currentPos - 1), (currentPos - 2), (currentPos - 3)]
   // const squareE = [currentPos, (currentPos - 1), (currentPos + width - 1), (currentPos + width)]
@@ -58,8 +58,8 @@ function init() {
   // const zagZigArray = [zagZigN]
   // const lShapeArray = [lShapeN]
   // const jShapeArray = [jShapeN]
-
-  const starterArray = [rectangleN, squareN, sidewaysTN, zigZagN, zagZigN, lShapeN, jShapeN]
+  const starterArray = [0, 1, 2, 3, 4, 5, 6]
+  //const starterArray = [rectangleN, squareN, sidewaysTN, zigZagN, zagZigN, lShapeN, jShapeN]
   //* POTENTIAL SHAPE COLOURS
   //const colours = ['#000000', '#ffffff', '#ffd700', '#800000']
 
@@ -75,15 +75,27 @@ function init() {
     }
   }
   makeGrid(gridArea)
-  
+   
   //* GENERATE NEXT SHAPE
   function createShape(array, position) {
-    //currentIndex = 0
-    currentChoice = Math.floor(Math.random() * array.length)
-    currentArray = array[currentChoice]
-    nextShape = currentArray//[currentIndex]
+    nextShape = []
+    currentChoice = 0
+    if (currentChoice === 0) {
+      makeRectangle()
+    }
     currentPos = position
     return nextShape
+  }
+  // function createShape(array, position) {
+  //   //currentIndex = 0
+  //   currentChoice = Math.floor(Math.random() * array.length)
+  //   currentArray = array[currentChoice]
+  //   nextShape = currentArray//[currentIndex]
+  //   currentPos = position
+  //   return nextShape
+  // }
+  function makeRectangle() {
+    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + width * 3))
   }
   //* START GAME FUNCTION
   function startGame() {
@@ -213,7 +225,7 @@ function init() {
   //* MOVE DOWN FUNCTION
   function moveDown() {
     removeShape(currentShape)
-    //currentPos += width
+    currentPos += width
     currentShape = currentShape.map(item => {
       item += width
       return item
