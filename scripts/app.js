@@ -66,8 +66,7 @@ function init() {
   //* GENERATE NEXT SHAPE
   function createShape(position) {
     nextShape = []
-    currentChoice = 5
-    //currentChoice = Math.floor(Math.random() * 7)
+    currentChoice = Math.floor(Math.random() * 7)
     if (currentChoice === 0) {
       makeRectangle()
     } else if (currentChoice === 1) {
@@ -333,7 +332,7 @@ function init() {
   //* TURN ZAGZIG
   function turnZagZig() {
     if (compassDirection === compassDirections[0]) {
-      nextRotation = [currentShape[0], (currentShape[0] - 1 + (width * 2)), (currentShape[0] + width), (currentShape[0] + (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] - (width + 2)), (currentShape[0] - (width + 1)), (currentShape[0] - 1)]
       if (nextRotation.every(item => {
         return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea)
       })){
@@ -343,7 +342,7 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[1]) {
-      nextRotation = [currentShape[0], (currentShape[0] - (width + 2)), (currentShape[0] - (width + 1)), (currentShape[0] - 1)]
+      nextRotation = [currentShape[0], (currentShape[0] - ((width * 2) - 1)), (currentShape[0] - width), (currentShape[0] - (width - 1))]
       if (nextRotation.every(item => {
         return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item >= 0) 
       })) {
@@ -353,7 +352,7 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[2]) {
-      nextRotation = [currentShape[0], (currentShape[0] - ((width * 2) - 1)), (currentShape[0] - width), (currentShape[0] - (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] + width + 2), (currentShape[0] + (width + 1)), (currentShape[0] + 1)]
       if (nextRotation.every(item => {
         return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0) 
       })){
@@ -363,7 +362,7 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[3]) {
-      nextRotation = [currentShape[0], (currentShape[0] + width + 2), (currentShape[0] + (width + 1)), (currentShape[0] + 1)]
+      nextRotation = [currentShape[0], (currentShape[0] - 1 + (width * 2)), (currentShape[0] + width), (currentShape[0] + (width - 1))]
       if (nextRotation.every(item => {
         return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && ((item + width) < gridArea) 
       })){
@@ -375,6 +374,7 @@ function init() {
     }
   }
 
+  //* TURN L SHAPE
   function turnLShape() {
     if (compassDirection === compassDirections[0]) {
       nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - 2), (currentShape[0] + (width - 2))]
@@ -419,38 +419,51 @@ function init() {
     }
   }
 
+  //* TURN J SHAPE
   function turnJShape() {
     if (compassDirection === compassDirections[0]) {
-      removeShape(cells)
-      currentShape[1] = currentShape[1] - (width + 1)
-      currentShape[2] = currentShape[2] - ((width * 2) + 2)
-      currentShape[3] = currentShape[3] - ((width * 3) + 1)
-      compassDirection = compassDirections[1]
-      addShape(currentShape)
+      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - 2), (currentShape[0] - (width + 2))]
+      if (nextRotation.every(item => {
+        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea)
+      })){
+        removeShape(cells)
+        compassDirection = compassDirections[1]
+        currentShape = nextRotation
+        addShape(currentShape)
+      }
     } else if (compassDirection === compassDirections[1]) {
-      removeShape(cells)
-      currentShape[1] = currentShape[1] - (width - 1)
-      currentShape[2] = currentShape[2] - ((width * 2) - 2)
-      currentShape[3] = currentShape[3] - (width - 3)
-      compassDirection = compassDirections[2]
-      addShape(currentShape)
+      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - (width * 2)), (currentShape[0] - ((width * 2) - 1))]
+      if (nextRotation.every(item => {
+        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item >= 0) 
+      })) {
+        removeShape(cells)
+        compassDirection = compassDirections[2]
+        currentShape = nextRotation
+        addShape(currentShape)
+      }
     } else if (compassDirection === compassDirections[2]) {
-      removeShape(cells)
-      currentShape[1] = currentShape[1] + (width + 1)
-      currentShape[2] = currentShape[2] + ((width * 2) + 2)
-      currentShape[3] = currentShape[3] + ((width * 3) + 1)
-      compassDirection = compassDirections[3]
-      addShape(currentShape)
+      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] + 2), (currentShape[0] + (width + 2))]
+      if (nextRotation.every(item => {
+        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0) 
+      })){
+        removeShape(cells)
+        compassDirection = compassDirections[3]
+        currentShape = nextRotation
+        addShape(currentShape)
+      }
     } else if (compassDirection === compassDirections[3]) {
-      removeShape(cells)
-      currentShape[1] = currentShape[1] + (width - 1)
-      currentShape[2] = currentShape[2] + ((width * 2) - 2)
-      currentShape[3] = currentShape[3] + (width - 3)
-      compassDirection = compassDirections[0]
-      addShape(currentShape)
+      nextRotation = [currentShape[0], (currentShape[0] + (width * 2)), (currentShape[0] + ((width * 2) - 1)), (currentShape[0] + width)]
+      if (nextRotation.every(item => {
+        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && ((item + width) < gridArea) 
+      })){
+        removeShape(cells)
+        compassDirection = compassDirections[0]
+        currentShape = nextRotation
+        addShape(currentShape)
+      }
     }
   }
-  //* ROTATOR FUNCTION (IN PROGRESS)
+  //* ROTATOR FUNCTION
   function turnShape() {
     if (currentChoice === 0) {
       turnRectangle()
@@ -467,46 +480,6 @@ function init() {
     } else if (currentChoice === 6) {
       turnJShape()
     }
-    
-    // if (compassDirection === 0) {
-    //   currentShape = [currentPos]
-    //   if (cells[currentPos + width].classList.contains('tetrimino')) {
-    //     currentShape.push(currentPos - 1)
-    //     // cells[currentPos + width].classList.remove('tetrimino')
-    //     // cells[currentPos - 1].classList.add('tetrimino')
-    //   } 
-    //   if (cells[currentPos - (width * 2)].classList.contains('tetrimino')) {
-    //     currentShape.push(currentPos - 2)
-    //     // cells[currentPos - (width * 2)].classList.contains('tetrimino')
-    //     // cells[currentPos - 2].classList.add('tetrimino')
-    //   }
-    //   if (cells[currentPos - (width * 2)].classList.contains('tetrimino')) {
-    //     currentShape.push(currentPos - 3)
-    //     // cells[currentPos - (width * 3)].classList.contains('tetrimino')
-    //     // cells[currentPos - 3].classList.add('tetrimino')
-    //   }
-    //   removeShape(cells)
-    //   addShape(currentShape)
-    
-    // }
-
-    // if (currentIndex < (currentArray.length - 1) && currentArray[currentIndex + 1].every(item => {
-    //   return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
-    // })) {
-    //   removeShape(cells)
-    //   currentIndex++
-    //   currentShape = currentArray[currentIndex]
-    //   addShape(currentShape)
-    // }  else if (currentIndex === 3 && currentArray[0].every(item => {
-    //   return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
-    // })) {
-    //   removeShape(cells)
-    //   currentIndex = 0
-    //   currentShape = currentArray[currentIndex]
-    //   addShape(currentShape)
-    // } else {
-    //   console.log('cannot rotate')
-    // }
   }
   //* RIGHT MOVE FUNCTION
   function moveRight() {
