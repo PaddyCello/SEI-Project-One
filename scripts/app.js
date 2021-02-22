@@ -265,6 +265,7 @@ function init() {
         return item
       })
       checkRow()
+      currentPos = startPosition
       throwShapes()
     } else {
       clearInterval(shapeFallId)
