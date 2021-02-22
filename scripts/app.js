@@ -12,7 +12,7 @@ function init() {
   
   let currentPos = startPosition
   let currentShape
-  let currentArray
+  //let currentArray
   //let currentIndex
   let currentChoice
   let nextShape
@@ -79,9 +79,12 @@ function init() {
   //* GENERATE NEXT SHAPE
   function createShape(array, position) {
     nextShape = []
+    //currentChoice = Math.floor(Math.random() * array.length)
     currentChoice = 0
     if (currentChoice === 0) {
       makeRectangle()
+    } else if (currentChoice === 1) {
+      makeSquare()
     }
     currentPos = position
     compassDirection = compassDirections[0]
@@ -97,6 +100,9 @@ function init() {
   // }
   function makeRectangle() {
     nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + width * 3))
+  }
+  function makeSquare() {
+    nextShape.push(currentPos, (currentPos + 1), (currentPos + width + 1), (currentPos + width))
   }
   //* START GAME FUNCTION
   function startGame() {
@@ -131,7 +137,7 @@ function init() {
   
   function removeShape(array) {
     array.forEach(item => {
-      cells[item].classList.remove('tetrimino')
+      item.classList.remove('tetrimino')
     })
   } 
   //* KEYUP EVALUATOR
@@ -160,42 +166,53 @@ function init() {
     }
   } 
   function turnRectangle() {
+    console.log(compassDirection)
     if (compassDirection === compassDirections[0]) {
-      removeShape(currentShape)
+      removeShape(cells)
       currentShape[1] = currentShape[1] - (width + 1)
       currentShape[2] = currentShape[2] - ((width * 2) + 2)
       currentShape[3] = currentShape[3] - ((width * 3) + 3)
       compassDirection = compassDirections[1]
+      console.log(compassDirection)
       addShape(currentShape)
     } else if (compassDirection === compassDirections[1]) {
-      removeShape(currentShape)
+      removeShape(cells)
       currentShape[1] = currentShape[1] - (width - 1)
       currentShape[2] = currentShape[2] - ((width * 2) - 2)
       currentShape[3] = currentShape[3] - ((width * 3) - 3)
       compassDirection = compassDirections[2]
+      console.log(currentShape)
       
+      addShape(currentShape)
+    }
+  }
+  function turnSquare() {
+    if (compassDirection === compassDirections[0]) {
+      removeShape(cells)
+      currentShape[1] = currentShape[1] + (width - 1)
+      currentShape[2] = currentShape[2] - (width * 5)
+      currentShape[3] = currentShape[3] - (width * 6)
       addShape(currentShape)
     }
   }
   //* ROTATOR FUNCTION (IN PROGRESS)
   function turnShape() {
     if (currentChoice === 0) {
-      
       turnRectangle()
-      console.log(compassDirection)
-      
+    } else if (currentChoice === 1) {
+      turnSquare()
     }
     // if (currentIndex < (currentArray.length - 1) && currentArray[currentIndex + 1].every(item => {
     //   return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
     // })) {
-    //   removeShape(currentShape)
+    //   removeShape(cells)
     //   currentIndex++
     //   currentShape = currentArray[currentIndex]
     //   addShape(currentShape)
     // }  else if (currentIndex === 3 && currentArray[0].every(item => {
     //   return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item % width !== 0) && ((item + width) < gridArea) && (item >= 0)
     // })) {
-    //   removeShape(currentShape)
+    //   removeShape(cells)
     //   currentIndex = 0
     //   currentShape = currentArray[currentIndex]
     //   addShape(currentShape)
@@ -205,7 +222,7 @@ function init() {
   }
   //* RIGHT MOVE FUNCTION
   function moveRight() {
-    removeShape(currentShape)
+    removeShape(cells)
     currentShape = currentShape.map(item => {
       item++
       return item
@@ -216,7 +233,7 @@ function init() {
   }
   //* LEFT MOVE FUNCTION
   function moveLeft() {
-    removeShape(currentShape)
+    removeShape(cells)
     currentShape = currentShape.map(item => {
       item--
       return item
@@ -227,7 +244,7 @@ function init() {
   }
   //* MOVE DOWN FUNCTION
   function moveDown() {
-    removeShape(currentShape)
+    removeShape(cells)
     currentPos += width
     currentShape = currentShape.map(item => {
       item += width
