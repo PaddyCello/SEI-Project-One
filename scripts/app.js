@@ -80,8 +80,8 @@ function init() {
   //* GENERATE NEXT SHAPE
   function createShape(array, position) {
     nextShape = []
-    
-    currentChoice = Math.floor(Math.random() * array.length)
+    currentChoice = 0
+    //currentChoice = Math.floor(Math.random() * array.length)
     if (currentChoice === 0) {
       makeRectangle()
     } else if (currentChoice === 1) {
@@ -192,23 +192,29 @@ function init() {
     }
   } 
   function turnRectangle() {
-    console.log(compassDirection)
+    
     if (compassDirection === compassDirections[0]) {
+      console.log(compassDirection)
+      console.log(currentShape)
       removeShape(cells)
       currentShape[1] = currentShape[1] - (width + 1)
       currentShape[2] = currentShape[2] - ((width * 2) + 2)
       currentShape[3] = currentShape[3] - ((width * 3) + 3)
       compassDirection = compassDirections[1]
+      console.log(currentShape)
       console.log(compassDirection)
       addShape(currentShape)
-    } else if (compassDirection === compassDirections[1]) {
+    } 
+    if (compassDirection === compassDirections[1]) {
+      console.log(compassDirection)
+      console.log(currentShape)
       removeShape(cells)
       currentShape[1] = currentShape[1] - (width - 1)
       currentShape[2] = currentShape[2] - ((width * 2) - 2)
       currentShape[3] = currentShape[3] - ((width * 3) - 3)
       compassDirection = compassDirections[2]
       console.log(currentShape)
-      
+      console.log(compassDirection)
       addShape(currentShape)
     }
   }
