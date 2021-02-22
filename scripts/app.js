@@ -58,7 +58,7 @@ function init() {
   // const zagZigArray = [zagZigN]
   // const lShapeArray = [lShapeN]
   // const jShapeArray = [jShapeN]
-  const starterArray = [0, 1, 2, 3, 4, 5, 6]
+  
   //const starterArray = [rectangleN, squareN, sidewaysTN, zigZagN, zagZigN, lShapeN, jShapeN]
   //* POTENTIAL SHAPE COLOURS
   //const colours = ['#000000', '#ffffff', '#ffd700', '#800000']
@@ -78,10 +78,10 @@ function init() {
   makeGrid(gridArea)
    
   //* GENERATE NEXT SHAPE
-  function createShape(array, position) {
+  function createShape(position) {
     nextShape = []
-    currentChoice = 0
-    //currentChoice = Math.floor(Math.random() * array.length)
+    
+    currentChoice = Math.floor(Math.random() * 7)
     if (currentChoice === 0) {
       makeRectangle()
     } else if (currentChoice === 1) {
@@ -139,7 +139,7 @@ function init() {
   //* SETINTERVAL
   function throwShapes() {
     clearInterval(shapeFallId)
-    createShape(starterArray, startPosition)
+    createShape(startPosition)
     currentShape = nextShape
     addShape(currentShape)
     compassDirection = compassDirections[0]
@@ -195,26 +195,32 @@ function init() {
   function turnRectangle() {
     
     if (compassDirection === compassDirections[0]) {
-      console.log(compassDirection)
-      console.log(currentShape)
       removeShape(cells)
       currentShape[1] = currentShape[1] - (width + 1)
       currentShape[2] = currentShape[2] - ((width * 2) + 2)
       currentShape[3] = currentShape[3] - ((width * 3) + 3)
       compassDirection = compassDirections[1]
-      console.log(currentShape)
-      console.log(compassDirection)
       addShape(currentShape)
     } else if (compassDirection === compassDirections[1]) {
-      console.log(compassDirection)
-      console.log(currentShape)
       removeShape(cells)
       currentShape[1] = currentShape[1] - (width - 1)
       currentShape[2] = currentShape[2] - ((width * 2) - 2)
       currentShape[3] = currentShape[3] - ((width * 3) - 3)
       compassDirection = compassDirections[2]
-      console.log(currentShape)
-      console.log(compassDirection)
+      addShape(currentShape)
+    } else if (compassDirection === compassDirections[2]) {
+      removeShape(cells)
+      currentShape[1] = currentShape[1] + (width + 1)
+      currentShape[2] = currentShape[2] + ((width * 2) + 2)
+      currentShape[3] = currentShape[3] + ((width * 3) + 3)
+      compassDirection = compassDirections[3]
+      addShape(currentShape)
+    } else if (compassDirection === compassDirections[3]) {
+      removeShape(cells)
+      currentShape[1] = currentShape[1] + (width - 1)
+      currentShape[2] = currentShape[2] + ((width * 2) - 2)
+      currentShape[3] = currentShape[3] + ((width * 3) - 3)
+      compassDirection = compassDirections[0]
       addShape(currentShape)
     }
   }
