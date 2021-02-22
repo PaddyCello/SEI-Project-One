@@ -132,6 +132,7 @@ function init() {
   }
   //* START GAME FUNCTION
   function startGame() {
+    document.querySelector('button').disabled = 'true'
     throwShapes()
   }
   
@@ -204,8 +205,7 @@ function init() {
       console.log(currentShape)
       console.log(compassDirection)
       addShape(currentShape)
-    } 
-    if (compassDirection === compassDirections[1]) {
+    } else if (compassDirection === compassDirections[1]) {
       console.log(compassDirection)
       console.log(currentShape)
       removeShape(cells)
