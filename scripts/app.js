@@ -79,12 +79,21 @@ function init() {
   //* GENERATE NEXT SHAPE
   function createShape(array, position) {
     nextShape = []
-    //currentChoice = Math.floor(Math.random() * array.length)
-    currentChoice = 0
+    currentChoice = Math.floor(Math.random() * array.length)
     if (currentChoice === 0) {
       makeRectangle()
     } else if (currentChoice === 1) {
       makeSquare()
+    } else if (currentChoice === 2) {
+      makeSidewaysT()
+    } else if (currentChoice === 3) {
+      makezigZag()
+    } else if (currentChoice === 4) {
+      makezagZig()
+    } else if (currentChoice === 5) {
+      makeLShape()
+    } else {
+      makeJShape()
     }
     currentPos = position
     compassDirection = compassDirections[0]
@@ -103,6 +112,21 @@ function init() {
   }
   function makeSquare() {
     nextShape.push(currentPos, (currentPos + 1), (currentPos + width + 1), (currentPos + width))
+  }
+  function makeSidewaysT() {
+    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + width + 1))
+  }
+  function makezigZag() {
+    nextShape.push(currentPos, (currentPos + width), (currentPos + 1 + (width * 2)), (currentPos + width + 1))
+  }
+  function makezagZig() {
+    nextShape.push(currentPos, (currentPos + width), (currentPos - 1 + width), (currentPos - 1 + (width * 2)))
+  }
+  function makeLShape() {
+    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos + 1 + (width * 2))
+  }
+  function makeJShape() {
+    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos - 1 + (width * 2))
   }
   //* START GAME FUNCTION
   function startGame() {
