@@ -22,6 +22,7 @@ function init() {
   let compassDirection
 
   document.addEventListener('keyup', processShape)
+  document.addEventListener('keydown', tryMoveDown)
   document.querySelector('button').addEventListener('click', startGame)
 
 
@@ -125,6 +126,18 @@ function init() {
       item.classList.remove('tetrimino')
     })
   } 
+  //* KEYDOWN EVALUATOR
+  function tryMoveDown(event) {
+    if (event.keyCode === 40 && currentShape.every(item => {
+      return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
+    })) {
+      moveDown()
+    } else if (event.keyCode === 40 && currentShape.some(item => {
+      return item > (gridArea - (width + 1)) || cells[item + width].classList.contains('stopped')
+    })) {
+      makeStopped()
+    }
+  }
   //* KEYUP EVALUATOR
   function processShape(event) {
     if (event.keyCode === 32) {
@@ -138,14 +151,6 @@ function init() {
       return item % width !== 0 && !(cells[item - 1].classList.contains('stopped'))
     })) {
       moveLeft()
-    } else if (event.keyCode === 40 && currentShape.every(item => {
-      return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
-    })) {
-      moveDown()
-    } else if (event.keyCode === 40 && currentShape.some(item => {
-      return item > (gridArea - (width + 1)) || cells[item + width].classList.contains('stopped')
-    })) {
-      makeStopped()
     } else {
       console.log('invalid key')
     }
