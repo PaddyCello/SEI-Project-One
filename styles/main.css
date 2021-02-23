@@ -5,6 +5,7 @@ h1 {
   font-size: 90px;
   color: #800000;
   letter-spacing: 15px;
+  text-shadow: 4px 4px 2px #ffd700;
 }
 body {
   display: flex;
