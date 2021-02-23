@@ -118,13 +118,14 @@ function init() {
   //* GET AND REMOVE SHAPES
   function addShape(array) {
     array.forEach(item => {
-      //document.querySelector('.tetrimino').style.backgroundColor = colours[currentChoice]
+      cells[item].style.backgroundColor = colours[currentChoice]
       cells[item].classList.add('tetrimino')
     })
   }
   
   function removeShape(array) {
     array.forEach(item => {
+      item.style.backgroundColor = '#000000'
       item.classList.remove('tetrimino')
     })
   } 
@@ -497,9 +498,10 @@ function init() {
       item++
       return item
     })
-    currentShape.forEach(item => {
-      cells[item].classList.add('tetrimino')
-    })
+    addShape(currentShape)
+    // currentShape.forEach(item => {
+    //   cells[item].classList.add('tetrimino')
+    // })
   }
   //* LEFT MOVE FUNCTION
   function moveLeft() {
@@ -508,9 +510,10 @@ function init() {
       item--
       return item
     })
-    currentShape.forEach(item => {
-      cells[item].classList.add('tetrimino')
-    })
+    addShape(currentShape)
+    // currentShape.forEach(item => {
+    //   cells[item].classList.add('tetrimino')
+    // })
   }
   //* MOVE DOWN FUNCTION
   function moveDown() {
@@ -520,9 +523,10 @@ function init() {
       item += width
       return item
     })
-    currentShape.forEach(item => {
-      cells[item].classList.add('tetrimino')
-    })
+    addShape(currentShape)
+    // currentShape.forEach(item => {
+    //   cells[item].classList.add('tetrimino')
+    // })
   }
   //* EVALUATOR FOR SEEING IF SHAPE IS UNABLE TO DESCEND
   function makeStopped() {
