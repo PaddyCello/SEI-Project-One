@@ -10,13 +10,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #808080;
+  background-color: #AAA3B4;
 }
 main {
   display: flex;
   flex-direction: row;
   height: 600px;
-  background-color: #808080;
+  background-color: #AAA3B4;
 }
 
 .grid-wrapper {
