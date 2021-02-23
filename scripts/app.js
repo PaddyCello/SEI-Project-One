@@ -536,6 +536,7 @@ function init() {
       currentShape.map(item => {
         cells[item].classList.remove('tetrimino')
         cells[item].classList.add('stopped')
+        cells[item].style.backgroundColor = '#463848'
         return item
       })
       checkRow()
@@ -561,12 +562,14 @@ function init() {
         score += 100
         scoreBoard.innerText = score
         rowCells = rowCells.map(item => {
-          return item.classList.remove('stopped')
+          return item.classList.remove('stopped'), item.style.backgroundColor = '#000000'
         })
         for (let j = (i - 1); j >= 0; j--) {
           if (cells[j].classList.contains('stopped')) {
             cells[j].classList.remove('stopped')
+            cells[j].style.backgroundColor = '#000000'
             cells[j + width].classList.add('stopped')
+            cells[j + width].style.backgroundColor = '#463848'
           }
         }
       }
