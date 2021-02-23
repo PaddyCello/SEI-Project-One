@@ -52,9 +52,10 @@ main {
   color: #97e622;
 }
 p {
-  width: 300px;
+  width: 250px;
   font-family: 'Special Elite', cursive;
-  padding: 15px 5px;
+  padding: 10px 5px;
+  margin: 0 auto 0 20px;
   font-size: 20px;
   color: #AAA3B4;
   background-color: #000000;

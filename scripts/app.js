@@ -21,6 +21,7 @@ function init() {
   const compassDirections = ['N', 'E', 'S', 'W']
   let compassDirection
   let milliseconds = 1000
+  let justGotTetris = false
 
   document.addEventListener('keyup', processShape)
   document.addEventListener('keydown', tryMoveDown)
@@ -499,9 +500,6 @@ function init() {
       return item
     })
     addShape(currentShape)
-    // currentShape.forEach(item => {
-    //   cells[item].classList.add('tetrimino')
-    // })
   }
   //* LEFT MOVE FUNCTION
   function moveLeft() {
@@ -511,9 +509,6 @@ function init() {
       return item
     })
     addShape(currentShape)
-    // currentShape.forEach(item => {
-    //   cells[item].classList.add('tetrimino')
-    // })
   }
   //* MOVE DOWN FUNCTION
   function moveDown() {
@@ -524,9 +519,6 @@ function init() {
       return item
     })
     addShape(currentShape)
-    // currentShape.forEach(item => {
-    //   cells[item].classList.add('tetrimino')
-    // })
   }
   //* EVALUATOR FOR SEEING IF SHAPE IS UNABLE TO DESCEND
   function makeStopped() {
@@ -554,12 +546,14 @@ function init() {
   //* CHECK TO SEE IF ROW IS FULL
   function checkRow() {
     let rowCells = []
+    let rowsAtOnce = 0
     for (let i = 0; i < gridArea; i += width) {
       rowCells = cells.slice(i, (i + width))
       if (rowCells.every(item => {
         return (item.classList.contains('stopped'))
       })) {
         score += 100
+        rowsAtOnce += 1
         scoreBoard.innerText = score
         rowCells = rowCells.map(item => {
           return item.classList.remove('stopped'), item.style.backgroundColor = '#000000'
@@ -573,6 +567,17 @@ function init() {
           }
         }
       }
+    }
+    if (rowsAtOnce === 4 && justGotTetris === true) {
+      score += 800
+      scoreBoard.innerText = score
+      justGotTetris = true
+    } else if (rowsAtOnce === 4) {
+      score += 400
+      scoreBoard.innerText = score
+      justGotTetris = true
+    } else {
+      justGotTetris = false
     }
   }
 
