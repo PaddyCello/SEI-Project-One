@@ -27,7 +27,7 @@ function init() {
 
   //* FUNCTIONS OF SHAPE CONFIGURATIONS
   function makeRectangle() {
-    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + width * 3))
+    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + (width * 3)))
   }
   function makeSquare() {
     nextShape.push(currentPos, (currentPos + 1), (currentPos + width + 1), (currentPos + width))
@@ -90,6 +90,8 @@ function init() {
   //* START GAME FUNCTION
   function startGame() {
     document.querySelector('button').disabled = 'true'
+    document.querySelector('button').classList.remove('button')
+    document.querySelector('button').innerText = 'удачи!'
     throwShapes()
   }
   
@@ -154,7 +156,7 @@ function init() {
     if (compassDirection === compassDirections[0]) {
       nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - 2), (currentShape[0] - 3)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) 
+        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1))
       })){
         removeShape(cells)
         compassDirection = compassDirections[1]
@@ -164,7 +166,7 @@ function init() {
     } else if (compassDirection === compassDirections[1]) {
       nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - (width * 2)), (currentShape[0] - (width * 3))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item >= 0) 
+        return !(cells[item].classList.contains('stopped')) && (item >= 0) && ((item + width) < gridArea)
       })) {
         removeShape(cells)
         compassDirection = compassDirections[2]
@@ -174,7 +176,7 @@ function init() {
     } else if (compassDirection === compassDirections[2]) {
       nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] + 2), (currentShape[0] + 3)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) 
+        return !(cells[item].classList.contains('stopped')) && (item % width !== 0)
       })){
         removeShape(cells)
         compassDirection = compassDirections[3]
@@ -184,7 +186,7 @@ function init() {
     } else if (compassDirection === compassDirections[3]) {
       nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] + (width * 2)), (currentShape[0] + (width * 3))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) 
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) && (item >= 0)
       })){
         removeShape(cells)
         compassDirection = compassDirections[0]
