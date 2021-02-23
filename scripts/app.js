@@ -51,7 +51,7 @@ function init() {
   }
  
   //* POTENTIAL SHAPE COLOURS
-  const colours = ['#6E3F52', '#ffffff', '#ffd700', '#800000', '#976775', '#dabc12', '#f4e655']
+  const colours = ['#6E3F52', '#ffffff', '#ffd700', '#800000', '#09a222', '#947cec', '#9798cb']
 
   //* GRID CONSTRUCTOR
 
