@@ -35,14 +35,14 @@ main {
 }
 
 .tetrimino {
-  background-color: #ffd700;
-  box-shadow: inset 3px 3px 3px #e7e5e5, inset -3px -3px 3px #141414;
+  background-color: #dabc12;
+  box-shadow: inset 3px 3px 2px #e4e3e3, inset -3px -3px 2px #504f4f;
 }
 .stopped {
   background-color: #463848;
   box-shadow: inset 3px 3px 3px #e7e5e5, inset -3px -3px 3px #141414;
 }
-span {
+.score {
   align-self: flex-end;
   width: 100px;
   font-family: 'Orbitron', sans-serif;

@@ -51,7 +51,7 @@ function init() {
   }
  
   //* POTENTIAL SHAPE COLOURS
-  //const colours = ['#000000', '#ffffff', '#ffd700', '#800000']
+  const colours = ['#6E3F52', '#ffffff', '#ffd700', '#800000', '#976775', '#dabc12', '#f4e655']
 
   //* GRID CONSTRUCTOR
 
@@ -86,7 +86,7 @@ function init() {
     }
     currentPos = position
     compassDirection = compassDirections[0]
-    return nextShape
+    return nextShape, currentChoice
   }
   
   //* START GAME FUNCTION
@@ -118,6 +118,7 @@ function init() {
   //* GET AND REMOVE SHAPES
   function addShape(array) {
     array.forEach(item => {
+      //document.querySelector('.tetrimino').style.backgroundColor = colours[currentChoice]
       cells[item].classList.add('tetrimino')
     })
   }
