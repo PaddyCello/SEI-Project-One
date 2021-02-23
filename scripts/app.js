@@ -20,6 +20,7 @@ function init() {
   scoreBoard.innerText = score
   const compassDirections = ['N', 'E', 'S', 'W']
   let compassDirection
+  let milliseconds = 1000
 
   document.addEventListener('keyup', processShape)
   document.addEventListener('keydown', tryMoveDown)
@@ -111,7 +112,7 @@ function init() {
       } else {
         makeStopped()
       }
-    }, 1000)
+    }, milliseconds)
   }
  
   //* GET AND REMOVE SHAPES
@@ -534,6 +535,9 @@ function init() {
       })
       checkRow()
       currentPos = startPosition
+      if (milliseconds > 200) {
+        milliseconds -= 5
+      }
       throwShapes()
     } else {
       clearInterval(shapeFallId)
