@@ -1,6 +1,7 @@
 h1 {
   font-family: 'Roboto Slab', serif;
   text-transform: uppercase;
+  margin: 5px;
   font-size: 90px;
   color: #800000;
   letter-spacing: 3vh;
@@ -37,4 +38,29 @@ main {
 }
 .stopped {
   background-color: #463848;
+}
+span {
+  align-self: flex-end;
+  width: 100px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 40px;
+  background-color: #000000;
+  color: #97e622;
+}
+p {
+  width: 300px;
+  font-family: 'Special Elite', cursive;
+  padding: 15px 5px;
+  font-size: 20px;
+  color: #AAA3B4;
+  background-color: #000000;
+}
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+}
+aside {
+  background-color: #000000;
+  letter-spacing: 2px;
+  line-height: 24px;
 }
