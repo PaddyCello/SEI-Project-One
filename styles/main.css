@@ -1,4 +1,14 @@
+h1 {
+  font-family: 'Roboto Slab', serif;
+  text-transform: uppercase;
+  font-size: 90px;
+  color: #800000;
+  letter-spacing: 3vh;
+}
 body {
+  background-color: #808080;
+}
+main {
   display: flex;
   flex-direction: row;
   background-color: #808080;
@@ -16,10 +26,11 @@ body {
   height: 8%;
   border: 1px solid #000000;
   margin: 0;
+  background-color: #000000;
 }
 
 .tetrimino {
-  background-color: #000000;
+  background-color: #ffd700;
 }
 .stopped {
   background-color: #ff0000;
