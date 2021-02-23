@@ -6,6 +6,9 @@ h1 {
   letter-spacing: 3vh;
 }
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #808080;
 }
 main {
@@ -33,5 +36,5 @@ main {
   background-color: #ffd700;
 }
 .stopped {
-  background-color: #ff0000;
+  background-color: #463848;
 }
