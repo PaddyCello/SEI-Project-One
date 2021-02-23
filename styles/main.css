@@ -4,7 +4,7 @@ h1 {
   margin: 5px;
   font-size: 90px;
   color: #800000;
-  letter-spacing: 3vh;
+  letter-spacing: 15px;
 }
 body {
   display: flex;
@@ -63,4 +63,18 @@ aside {
   background-color: #000000;
   letter-spacing: 2px;
   line-height: 24px;
+}
+button {
+  align-self: center;
+  height: 50px;
+  width: 300px;
+  font-family: 'Roboto Slab', serif;
+  text-transform: uppercase;
+  color: #ffd700;
+  font-size: 30px;
+  background-color: #800000;
+  letter-spacing: 5px;
+}
+button:hover {
+  cursor: pointer;
 }
