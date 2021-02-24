@@ -8,7 +8,7 @@ function init() {
   const gridArea = width * height
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
-  const startPosition = Math.floor(width / 2)
+  const startPosition = Math.floor(width / 2) + width
   
   let nextRotation
   let currentPos = startPosition
@@ -32,25 +32,25 @@ function init() {
 
   //* FUNCTIONS OF SHAPE CONFIGURATIONS
   function makeRectangle() {
-    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + (width * 3)))
+    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos - width))
   }
   function makeSquare() {
-    nextShape.push(currentPos, (currentPos + 1), (currentPos + width + 1), (currentPos + width))
+    nextShape.push(currentPos, (currentPos - width), (currentPos - (width - 1)), (currentPos + 1))
   }
   function makeSidewaysT() {
-    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), (currentPos + width + 1))
+    nextShape.push(currentPos, (currentPos - width), (currentPos + width), (currentPos + 1))
   }
   function makezigZag() {
-    nextShape.push(currentPos, (currentPos + width), (currentPos + 1 + (width * 2)), (currentPos + width + 1))
+    nextShape.push(currentPos, (currentPos - width), (currentPos + 1 + width), (currentPos + 1))
   }
   function makezagZig() {
-    nextShape.push(currentPos, (currentPos + width), (currentPos - 1 + width), (currentPos - 1 + (width * 2)))
+    nextShape.push(currentPos, (currentPos - width), (currentPos - 1), (currentPos + (width - 1)))
   }
   function makeLShape() {
-    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos + 1 + (width * 2))
+    nextShape.push(currentPos, (currentPos - width), (currentPos + width), (currentPos + 1 + width))
   }
   function makeJShape() {
-    nextShape.push(currentPos, (currentPos + width), (currentPos + (width * 2)), currentPos - 1 + (width * 2))
+    nextShape.push(currentPos, (currentPos - width), (currentPos + width), (currentPos + (width - 1)))
   }
  
   //* POTENTIAL SHAPE COLOURS
@@ -165,17 +165,17 @@ function init() {
   //* TURN RECTANGLE
   function turnRectangle() {
     if (compassDirection === compassDirections[0]) {
-      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - 2), (currentShape[0] - 3)]
+      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - 2), (currentShape[0] + 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1))
-      })){
+        return !(cells[item].classList.contains('stopped'))
+      }) && (nextRotation[1] % width !== (width - 1)) && (nextRotation[2] % width !== (width - 1)) && (nextRotation[3] % width !== 0)){
         removeShape(cells)
         compassDirection = compassDirections[1]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[1]) {
-      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - (width * 2)), (currentShape[0] - (width * 3))]
+      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - (width * 2)), (currentShape[0] + width)]
       if (nextRotation.every(item => {
         return !(cells[item].classList.contains('stopped')) && (item >= 0) && ((item + width) < gridArea)
       })) {
@@ -185,17 +185,17 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[2]) {
-      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] + 2), (currentShape[0] + 3)]
+      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] + 2), (currentShape[0] - 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0)
-      })){
+        return !(cells[item].classList.contains('stopped'))
+      }) && (nextRotation[1] % width !== 0) && (nextRotation[2] % width !== 0) && (nextRotation[3] % width !== (width - 1))){
         removeShape(cells)
         compassDirection = compassDirections[3]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[3]) {
-      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] + (width * 2)), (currentShape[0] + (width * 3))]
+      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] + (width * 2)), (currentShape[0] - width)]
       if (nextRotation.every(item => {
         return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) && (item >= 0)
       })){
@@ -210,9 +210,9 @@ function init() {
   //* TURN SQUARE
   function turnSquare() {
     if (compassDirection === compassDirections[0]) {
-      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] + width), (currentShape[0] + (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] + width + 1), (currentShape[0] + width)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea)
+        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && ((item + width) < gridArea)
       })){
         removeShape(cells)
         compassDirection = compassDirections[1]
@@ -220,9 +220,9 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[1]) {
-      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - (width + 1)), (currentShape[0] - 1)]
+      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] + (width - 1)), (currentShape[0] - 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item >= 0) 
+        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea) 
       })) {
         removeShape(cells)
         compassDirection = compassDirections[2]
@@ -230,9 +230,9 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[2]) {
-      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] - width), (currentShape[0] - (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - (width + 1)), (currentShape[0] - width)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0) 
+        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item >= 0) 
       })){
         removeShape(cells)
         compassDirection = compassDirections[3]
@@ -240,9 +240,9 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[3]) {
-      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] + (width + 1)), (currentShape[0] + 1)]
+      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - (width - 1)), (currentShape[0] + 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && ((item + width) < gridArea) 
+        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0)  
       })){
         removeShape(cells)
         compassDirection = compassDirections[0]
@@ -255,19 +255,19 @@ function init() {
   //* TURN SIDEWAYS T
   function turnSidewaysT() {
     if (compassDirection === compassDirections[0]) {
-      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - 2), (currentShape[0] + (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] - 1), (currentShape[0] + width)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea)
-      })){
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea)
+      }) && (nextRotation[1] % width !== 0) && (nextRotation[2] % width !== (width - 1))) {
         removeShape(cells)
         compassDirection = compassDirections[1]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[1]) {
-      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - (width * 2)), (currentShape[0] - (width + 1))]
+      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] - width), (currentShape[0] - 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item >= 0) && (item % width !== (width - 1))
+        return !(cells[item].classList.contains('stopped')) && (item >= 0) && (item % width !== (width - 1)) && ((item + width) < gridArea)
       })) {
         removeShape(cells)
         compassDirection = compassDirections[2]
@@ -275,19 +275,19 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[2]) {
-      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] + 2), (currentShape[0] - (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] + 1), (currentShape[0] - width)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0)
-      })){
+        return !(cells[item].classList.contains('stopped')) && (item >= 0)
+      }) && (nextRotation[1] % width !== (width - 1)) && (nextRotation[2] % width !== 0) ){
         removeShape(cells)
         compassDirection = compassDirections[3]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[3]) {
-      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] + (width * 2)), (currentShape[0] + (width + 1))]
+      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] + width), (currentShape[0] + 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) && (item % width !== 0)
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) && (item % width !== 0) && (item >= 0)
       })){
         removeShape(cells)
         compassDirection = compassDirections[0]
@@ -300,19 +300,19 @@ function init() {
   //* TURN ZIGZAG
   function turnZigZag() {
     if (compassDirection === compassDirections[0]) {
-      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] + (width - 2)), (currentShape[0] + (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] + (width - 1)), (currentShape[0] + width)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea)
-      })){
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea)
+      }) && (nextRotation[1] % width !== 0) && (nextRotation[2] % width !== (width - 1))){
         removeShape(cells)
         compassDirection = compassDirections[1]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[1]) {
-      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - ((width * 2) + 1)), (currentShape[0] - (width + 1))]
+      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] - (width + 1)), (currentShape[0] - 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item >= 0) && (item % width !== (width - 1))
+        return !(cells[item].classList.contains('stopped')) && (item >= 0) && (item % width !== (width - 1)) && ((item + width) < gridArea)
       })) {
         removeShape(cells)
         compassDirection = compassDirections[2]
@@ -320,19 +320,19 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[2]) {
-      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] - (width - 2)), (currentShape[0] - (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - (width - 1)), (currentShape[0] - width)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0)
-      })){
+        return !(cells[item].classList.contains('stopped')) && (item >= 0)
+      }) && (nextRotation[1] % width !== (width - 1)) && (nextRotation[2] % width !== 0)) {
         removeShape(cells)
         compassDirection = compassDirections[3]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[3]) {
-      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] + (width * 2) + 1), (currentShape[0] + (width + 1))]
+      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] + width + 1), (currentShape[0] + 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) && (item % width !== 0)
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) && (item % width !== 0) && (item >= 0)
       })){
         removeShape(cells)
         compassDirection = compassDirections[0]
@@ -345,19 +345,19 @@ function init() {
   //* TURN ZAGZIG
   function turnZagZig() {
     if (compassDirection === compassDirections[0]) {
-      nextRotation = [currentShape[0], (currentShape[0] - (width + 2)), (currentShape[0] - (width + 1)), (currentShape[0] - 1)]
+      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - 1), (currentShape[0] + (width - 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea)
-      })){
+        return !(cells[item].classList.contains('stopped')) && (item >= 0)
+      }) && (nextRotation[1] % width !== 0) && (nextRotation[3] % width !== (width - 1)) ){
         removeShape(cells)
         compassDirection = compassDirections[1]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[1]) {
-      nextRotation = [currentShape[0], (currentShape[0] - ((width * 2) - 1)), (currentShape[0] - width), (currentShape[0] - (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] + 1), (currentShape[0] - (width - 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item >= 0) 
+        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0) && ((item + width) < gridArea) 
       })) {
         removeShape(cells)
         compassDirection = compassDirections[2]
@@ -365,19 +365,19 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[2]) {
-      nextRotation = [currentShape[0], (currentShape[0] + width + 2), (currentShape[0] + (width + 1)), (currentShape[0] + 1)]
+      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] + width), (currentShape[0] + width + 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0) 
-      })){
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) 
+      }) && (nextRotation[1] % width !== (width - 1)) && (nextRotation[3] % width !== 0) ){
         removeShape(cells)
         compassDirection = compassDirections[3]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[3]) {
-      nextRotation = [currentShape[0], (currentShape[0] - 1 + (width * 2)), (currentShape[0] + width), (currentShape[0] + (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - 1), (currentShape[0] + (width - 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && ((item + width) < gridArea) 
+        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea) && (item >= 0) 
       })){
         removeShape(cells)
         compassDirection = compassDirections[0]
@@ -390,10 +390,10 @@ function init() {
   //* TURN L SHAPE
   function turnLShape() {
     if (compassDirection === compassDirections[0]) {
-      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - 2), (currentShape[0] + (width - 2))]
+      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] - 1), (currentShape[0] + (width - 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea)
-      })){
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea)
+      }) && (nextRotation[1] % width !== 0) && (nextRotation[2] % width !== (width - 1)) && (nextRotation[3] % width !== (width - 1)) ){
         removeShape(cells)
         compassDirection = compassDirections[1]
         currentShape = nextRotation
@@ -402,7 +402,7 @@ function init() {
     } else if (compassDirection === compassDirections[1]) {
       nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - (width * 2)), (currentShape[0] - ((width * 2) + 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item >= 0) && (item % width !== (width - 1))
+        return !(cells[item].classList.contains('stopped')) && (item >= 0) && (item % width !== (width - 1)) && ((item + width) < gridArea)
       })) {
         removeShape(cells)
         compassDirection = compassDirections[2]
@@ -410,19 +410,19 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[2]) {
-      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] + 2), (currentShape[0] - (width - 2))]
+      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] + 1), (currentShape[0] - (width - 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0)
-      })){
+        return !(cells[item].classList.contains('stopped')) && (item >= 0)
+      }) && (nextRotation[1] % width !== (width - 1)) && (nextRotation[2] % width !== 0) && (nextRotation[3] % width !== 0) ){
         removeShape(cells)
         compassDirection = compassDirections[3]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[3]) {
-      nextRotation = [currentShape[0], (currentShape[0] + width), (currentShape[0] + (width * 2)), (currentShape[0] + (width * 2) + 1)]
+      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] + width), (currentShape[0] + width + 1)]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) && (item % width !== 0)
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea) && (item % width !== 0) && (item >= 0)
       })){
         removeShape(cells)
         compassDirection = compassDirections[0]
@@ -435,10 +435,10 @@ function init() {
   //* TURN J SHAPE
   function turnJShape() {
     if (compassDirection === compassDirections[0]) {
-      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] - 2), (currentShape[0] - (width + 2))]
+      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] - 1), (currentShape[0] - (width + 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea)
-      })){
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea)
+      }) && (nextRotation[1] % width !== 0) && (nextRotation[2] % width !== (width - 1)) && (nextRotation[3] % width !== (width - 1)) ){
         removeShape(cells)
         compassDirection = compassDirections[1]
         currentShape = nextRotation
@@ -447,7 +447,7 @@ function init() {
     } else if (compassDirection === compassDirections[1]) {
       nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - (width * 2)), (currentShape[0] - ((width * 2) - 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && (item >= 0) 
+        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0) && ((item + width) < gridArea) 
       })) {
         removeShape(cells)
         compassDirection = compassDirections[2]
@@ -455,19 +455,19 @@ function init() {
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[2]) {
-      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] + 2), (currentShape[0] + (width + 2))]
+      nextRotation = [currentShape[0], (currentShape[0] - 1), (currentShape[0] + 1), (currentShape[0] + (width + 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && (item >= 0) 
-      })){
+        return !(cells[item].classList.contains('stopped')) && ((item + width) < gridArea)
+      }) && (nextRotation[1] % width !== (width - 1)) && (nextRotation[2] % width !== 0) && (nextRotation[3] % width !== 0) ){
         removeShape(cells)
         compassDirection = compassDirections[3]
         currentShape = nextRotation
         addShape(currentShape)
       }
     } else if (compassDirection === compassDirections[3]) {
-      nextRotation = [currentShape[0], (currentShape[0] + (width * 2)), (currentShape[0] + ((width * 2) - 1)), (currentShape[0] + width)]
+      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] + width), (currentShape[0] + (width - 1))]
       if (nextRotation.every(item => {
-        return !(cells[item].classList.contains('stopped')) && (item % width !== 0) && ((item + width) < gridArea) 
+        return !(cells[item].classList.contains('stopped')) && (item % width !== (width - 1)) && ((item + width) < gridArea) && (item >= 0) 
       })){
         removeShape(cells)
         compassDirection = compassDirections[0]
