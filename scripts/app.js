@@ -98,6 +98,7 @@ function init() {
     document.querySelector('button').classList.remove('button')
     document.querySelector('button').innerText = 'удачи!'
     document.querySelector('.filter').classList.add('grain')
+    document.querySelector('.filter-under').classList.add('overlay')
     throwShapes()
   }
   
