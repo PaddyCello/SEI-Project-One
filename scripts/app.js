@@ -539,7 +539,8 @@ function init() {
       throwShapes()
     } else {
       clearInterval(shapeFallId)
-      window.alert('You lose!')
+      //window.alert('You lose!')
+      document.querySelector('.done').style.display = 'flex'
     }
   }
   
@@ -576,7 +577,7 @@ function init() {
       score += 400
       scoreBoard.innerText = score
       justGotTetris = true
-    } else {
+    } else if (rowsAtOnce > 1 && rowsAtOnce < 4) {
       justGotTetris = false
     }
   }
