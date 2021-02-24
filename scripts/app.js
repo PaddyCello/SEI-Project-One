@@ -141,13 +141,6 @@ function init() {
       return item > (gridArea - (width + 1)) || cells[item + width].classList.contains('stopped')
     })) {
       makeStopped()
-    }
-  }
-  //* KEYUP EVALUATOR
-  function processShape(event) {
-    if (event.keyCode === 32) {
-      console.log(compassDirection)
-      turnShape() 
     } else if (event.keyCode === 39 && currentShape.every(item => {
       return item % width !== (width - 1) && !(cells[item + 1].classList.contains('stopped'))
     })) {
@@ -156,6 +149,13 @@ function init() {
       return item % width !== 0 && !(cells[item - 1].classList.contains('stopped'))
     })) {
       moveLeft()
+    }
+  }
+  //* KEYUP EVALUATOR
+  function processShape(event) {
+    if (event.keyCode === 32) {
+      console.log(compassDirection)
+      turnShape() 
     } else {
       console.log('invalid key')
     }
