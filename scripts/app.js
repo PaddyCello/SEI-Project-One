@@ -22,7 +22,7 @@ function init() {
   let compassDirection
   let milliseconds = 1000
   let justGotTetris = false
-  let highScore
+  let highScore = 0
 
   document.addEventListener('keyup', processShape)
   document.addEventListener('keydown', tryMoveDown)
@@ -601,6 +601,7 @@ function init() {
     if (score > highScore) {
       highScore = score
       document.querySelector('.high-score').innerText = highScore
+      console.log(highScore)
     } else {
       document.querySelector('.high-score').innerText = highScore
     }
