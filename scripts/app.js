@@ -97,6 +97,7 @@ function init() {
     document.querySelector('button').disabled = 'true'
     document.querySelector('button').classList.remove('button')
     document.querySelector('button').innerText = 'удачи!'
+    document.querySelector('.filter').classList.add('grain')
     throwShapes()
   }
   
