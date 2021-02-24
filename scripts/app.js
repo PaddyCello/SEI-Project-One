@@ -25,7 +25,8 @@ function init() {
 
   document.addEventListener('keyup', processShape)
   document.addEventListener('keydown', tryMoveDown)
-  document.querySelector('button').addEventListener('click', startGame)
+  document.querySelector('.button').addEventListener('click', startGame)
+  document.querySelector('.again').addEventListener('click', resetGame)
 
 
   //* FUNCTIONS OF SHAPE CONFIGURATIONS
@@ -539,7 +540,6 @@ function init() {
       throwShapes()
     } else {
       clearInterval(shapeFallId)
-      //window.alert('You lose!')
       document.querySelector('.done').style.display = 'flex'
     }
   }
@@ -581,7 +581,19 @@ function init() {
       justGotTetris = false
     }
   }
-
+  //* RESET GAME 
+  function resetGame() {
+    score = 0
+    scoreBoard.innerText = 0
+    cells.forEach(item => {
+      item.style.backgroundColor = '#000000'
+      item.classList.remove('tetrimino')
+      item.classList.remove('stopped')
+    })
+    milliseconds = 1000
+    document.querySelector('.done').style.display = 'none'
+    throwShapes()
+  }
   
   
 

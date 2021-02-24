@@ -122,3 +122,8 @@ button {
 .done p {
   margin: 0 auto;
 }
+.again:hover {
+  cursor: pointer;
+  color: #800000;
+  background-color: #ffd700;
+}
