@@ -62,7 +62,8 @@ p {
 }
 .scoreboard {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 aside {
   display: flex;
@@ -126,4 +127,13 @@ button {
   cursor: pointer;
   color: #800000;
   background-color: #ffd700;
+}
+.high-score {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 40px;
+  background-color: #000000;
+  color: #97e622;
+}
+.hs-tag {
+  font-size: 12px;
 }

@@ -22,6 +22,7 @@ function init() {
   let compassDirection
   let milliseconds = 1000
   let justGotTetris = false
+  let highScore
 
   document.addEventListener('keyup', processShape)
   document.addEventListener('keydown', tryMoveDown)
@@ -540,6 +541,7 @@ function init() {
       throwShapes()
     } else {
       clearInterval(shapeFallId)
+      updateHighScore()
       document.querySelector('.done').style.display = 'flex'
     }
   }
@@ -594,7 +596,15 @@ function init() {
     document.querySelector('.done').style.display = 'none'
     throwShapes()
   }
-  
+  //* HIGH SCORE
+  function updateHighScore() {
+    if (score > highScore) {
+      highScore = score
+      document.querySelector('.high-score').innerText = highScore
+    } else {
+      document.querySelector('.high-score').innerText = highScore
+    }
+  }
   
 
 }
