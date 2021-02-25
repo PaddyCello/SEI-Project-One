@@ -73,27 +73,26 @@ function init() {
   //* INTRO COUNTDOWN
   function countdown() {
     let i = 9
+    introNum.innerText = 10
+    document.querySelector('.intro').style.display = 'flex'
     introId = setInterval(() => {
       introNum.innerText = i
       if (i > 0) {
         i--
       } else {
         clearInterval(introId)
-        document.querySelector('.intro').remove()
-        startGame()
+        document.querySelector('.intro').style.display = 'none'
+        throwShapes()
       }
     }, 1000)
   }
   //* PLAY AUDIO
   function playAudio() {
     audio.src = './Shos_5.wav'
-    audio.muted = 'true'
     audio.play()
   }
-  playAudio()
-  document.querySelector('.filter').classList.add('grain')
-  document.querySelector('.filter-under').classList.add('overlay')
-  countdown()
+
+  
   
   //* GENERATE NEXT SHAPE
   function createShape(position) {
@@ -122,11 +121,12 @@ function init() {
   //* START GAME FUNCTION
   function startGame() {
     document.querySelector('button').disabled = 'true'
-    document.querySelector('button').classList.remove('button')
-    document.querySelector('button').innerText = 'удачи!'
+    document.querySelector('.button').innerText = 'удачи!'
     document.querySelector('.filter').classList.add('grain')
     document.querySelector('.filter-under').classList.add('overlay')
-    throwShapes()
+    document.querySelector('.intro').style.display = 'flex'
+    playAudio()
+    countdown()
   }
   
   //* SETINTERVAL
@@ -625,7 +625,8 @@ function init() {
     })
     milliseconds = 1000
     document.querySelector('.done').style.display = 'none'
-    throwShapes()
+    playAudio()
+    countdown()
   }
   //* HIGH SCORE
   function updateHighScore() {

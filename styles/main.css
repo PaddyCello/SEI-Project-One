@@ -85,6 +85,7 @@ button {
   font-size: 30px;
   background-color: #800000;
   letter-spacing: 5px;
+  margin: 30px;
 }
 .button:hover {
   cursor: pointer;
@@ -171,7 +172,7 @@ button {
   90% { transform:translate(-10%, 10%) }
 }
 .intro {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   height: 105vh;
