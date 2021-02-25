@@ -88,6 +88,7 @@ function init() {
   }
   //* PLAY AUDIO
   function playAudio() {
+    audio.setAttribute('loop', 'true')
     audio.src = './Shos_5.wav'
     audio.play()
   }
@@ -374,7 +375,7 @@ function init() {
   //* TURN ZAGZIG
   function turnZagZig() {
     if (compassDirection === compassDirections[0]) {
-      nextRotation = [currentShape[0], (currentShape[0] - width), (currentShape[0] - 1), (currentShape[0] + (width - 1))]
+      nextRotation = [currentShape[0], (currentShape[0] + 1), (currentShape[0] - width), (currentShape[0] - (width + 1))]
       if (nextRotation.every(item => {
         return !(cells[item].classList.contains('stopped')) && (item >= 0)
       }) && (nextRotation[1] % width !== 0) && (nextRotation[3] % width !== (width - 1)) ){
@@ -564,14 +565,15 @@ function init() {
       })
       checkRow()
       currentPos = startPosition
-      if (milliseconds > 200) {
-        milliseconds -= 5
+      if (milliseconds > 100) {
+        milliseconds -= 10
       }
       throwShapes()
     } else {
       clearInterval(shapeFallId)
       updateHighScore()
       document.querySelector('.done').style.display = 'flex'
+      audio.removeAttribute('loop')
       audio.src = './64940__syna-max__wilhelm-scream.wav'
       audio.play()
     }
