@@ -4,6 +4,7 @@ function init() {
 
   let shapeFallId
   let introId
+  const introNum = document.querySelector('.intro-number')
   const width = 11
   const height = 20
   const gridArea = width * height
@@ -59,7 +60,6 @@ function init() {
   const colours = ['#6E3F52', '#ffffff', '#ffd700', '#800000', '#09a222', '#947cec', '#9798cb']
 
   //* GRID CONSTRUCTOR
-
   function makeGrid() {
     for (let i = 0; i < gridArea; i++) {
       const cell = document.createElement('div')
@@ -72,9 +72,9 @@ function init() {
 
   //* INTRO COUNTDOWN
   function countdown() {
-    let i = 5
+    let i = 9
     introId = setInterval(() => {
-      document.querySelector('.intro-number').innerText = i
+      introNum.innerText = i
       if (i > 0) {
         i--
       } else {
@@ -84,6 +84,13 @@ function init() {
       }
     }, 1000)
   }
+  //* PLAY AUDIO
+  function playAudio() {
+    audio.src = './Shos_5.wav'
+    audio.muted = 'true'
+    audio.play()
+  }
+  playAudio()
   document.querySelector('.filter').classList.add('grain')
   document.querySelector('.filter-under').classList.add('overlay')
   countdown()
