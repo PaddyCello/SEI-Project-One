@@ -126,6 +126,8 @@ function init() {
     document.querySelector('.filter').classList.add('grain')
     document.querySelector('.filter-under').classList.add('overlay')
     document.querySelector('.intro').style.display = 'flex'
+    document.querySelector('h1').innerText = 'Тетрис!'
+    document.querySelector('title').innerText = 'Тетрис!'
     playAudio()
     countdown()
   }
