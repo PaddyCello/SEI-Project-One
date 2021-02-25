@@ -139,20 +139,34 @@ button {
   font-size: 12px;
 }
 .grain {
-  background-image: url('/paper_1/paper_1.png');
-  opacity: 0.2;
+  background-image: url('https://image.freepik.com/free-vector/grainy-overlay-texture_1102-1186.jpg');
+  opacity: 0.4;
   position: fixed;
-  z-index: 5;
+  z-index: 4;
   height: 110vh;
   width: 110vw;
   margin: 0;
   padding: 0;
 }
-.overlay {
+.grain:after {
+  content: '';
+  animation: grain 8s steps(10) infinite;
   background-image: url('https://image.freepik.com/free-vector/grainy-overlay-texture_1102-1186.jpg');
-  opacity: 0.2;
+  opacity: 0.3;
   position: fixed;
-  z-index: 4;
-  height: 300vh;
-  width: 300vw;
+  z-index: 5;
+  height: 150vh;
+  width: 150vw;
+}
+@keyframes grain {
+  0%, 100% { transform:translate(0, 0) }
+  10% { transform:translate(-5%, -10%) }
+  20% { transform:translate(-15%, 5%) }
+  30% { transform:translate(7%, -25%) }
+  40% { transform:translate(-5%, 25%) }
+  50% { transform:translate(-15%, 10%) }
+  60% { transform:translate(15%, 0%) }
+  70% { transform:translate(0%, 15%) }
+  80% { transform:translate(3%, 35%) }
+  90% { transform:translate(-10%, 10%) }
 }
