@@ -170,3 +170,24 @@ button {
   80% { transform:translate(3%, 35%) }
   90% { transform:translate(-10%, 10%) }
 }
+.intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 105vh;
+  width: 105vw;
+  position: fixed;
+  z-index: 3;
+  background-color: #e4e3e3;
+}
+.intro-number {
+  font-size: 400px;
+  text-align: center;
+  border: 20px solid #000000;
+  border-radius: 360px;
+  background-color: #e4e3e3;
+  font-family: 'Roboto Slab', serif;
+  color: #000000;
+  margin: 0 auto;
+  padding: 10px 150px;
+}
