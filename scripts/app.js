@@ -4,6 +4,8 @@ function init() {
 
   let shapeFallId
   let introId
+  const done = document.querySelector('.done')
+  const intro = document.querySelector('.intro')
   const introNum = document.querySelector('.intro-number')
   const width = 11
   const height = 20
@@ -26,9 +28,10 @@ function init() {
   let milliseconds = 1000
   let justGotTetris = false
   let highScore = 0
+  const highScoreBoard = document.querySelector('.high-score')
 
-  document.addEventListener('keyup', processShape)
-  document.addEventListener('keydown', tryMoveDown)
+  document.addEventListener('keyup', tryTurn)
+  document.addEventListener('keydown', tryMove)
   document.querySelector('.button').addEventListener('click', startGame)
   document.querySelector('.again').addEventListener('click', resetGame)
 
@@ -74,14 +77,14 @@ function init() {
   function countdown() {
     let i = 9
     introNum.innerText = 10
-    document.querySelector('.intro').style.display = 'flex'
+    intro.style.display = 'flex'
     introId = setInterval(() => {
       introNum.innerText = i
       if (i > 0) {
         i--
       } else {
         clearInterval(introId)
-        document.querySelector('.intro').style.display = 'none'
+        intro.style.display = 'none'
         throwShapes()
       }
     }, 1000)
@@ -125,7 +128,6 @@ function init() {
     document.querySelector('.button').innerText = 'удачи!'
     document.querySelector('.filter').classList.add('grain')
     document.querySelector('.filter-under').classList.add('overlay')
-    document.querySelector('.intro').style.display = 'flex'
     document.querySelector('h1').innerText = 'Тетрис!'
     document.querySelector('title').innerText = 'Тетрис!'
     playAudio()
@@ -165,7 +167,7 @@ function init() {
     })
   } 
   //* KEYDOWN EVALUATOR
-  function tryMoveDown(event) {
+  function tryMove(event) {
     if (event.keyCode === 40 && currentShape.every(item => {
       return (item + width) < gridArea && !(cells[item + width].classList.contains('stopped'))
     })) {
@@ -185,12 +187,9 @@ function init() {
     }
   }
   //* KEYUP EVALUATOR
-  function processShape(event) {
+  function tryTurn(event) {
     if (event.keyCode === 32) {
-      console.log(compassDirection)
       turnShape() 
-    } else {
-      console.log('invalid key')
     }
   } 
 
@@ -574,7 +573,7 @@ function init() {
     } else {
       clearInterval(shapeFallId)
       updateHighScore()
-      document.querySelector('.done').style.display = 'flex'
+      done.style.display = 'flex'
       audio.removeAttribute('loop')
       audio.src = './64940__syna-max__wilhelm-scream.wav'
       audio.play()
@@ -628,7 +627,7 @@ function init() {
       item.classList.remove('stopped')
     })
     milliseconds = 1000
-    document.querySelector('.done').style.display = 'none'
+    done.style.display = 'none'
     playAudio()
     countdown()
   }
@@ -636,10 +635,9 @@ function init() {
   function updateHighScore() {
     if (score > highScore) {
       highScore = score
-      document.querySelector('.high-score').innerText = highScore
-      console.log(highScore)
+      highScoreBoard.innerText = highScore
     } else {
-      document.querySelector('.high-score').innerText = highScore
+      highScoreBoard.innerText = highScore
     }
   }
   
