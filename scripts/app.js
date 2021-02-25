@@ -3,12 +3,14 @@ function init() {
   console.log('Javascript connected')
 
   let shapeFallId
+  let introId
   const width = 11
   const height = 20
   const gridArea = width * height
   const gridWrapper = document.querySelector('.grid-wrapper')
   const cells = []
   const startPosition = Math.floor(width / 2) + width
+  const audio = document.querySelector('audio')
   
   let nextRotation
   let currentPos = startPosition
@@ -67,7 +69,25 @@ function init() {
     }
   }
   makeGrid(gridArea)
-   
+
+  //* INTRO COUNTDOWN
+  function countdown() {
+    let i = 5
+    introId = setInterval(() => {
+      document.querySelector('.intro-number').innerText = i
+      if (i > 0) {
+        i--
+      } else {
+        clearInterval(introId)
+        document.querySelector('.intro').remove()
+        startGame()
+      }
+    }, 1000)
+  }
+  document.querySelector('.filter').classList.add('grain')
+  document.querySelector('.filter-under').classList.add('overlay')
+  countdown()
+  
   //* GENERATE NEXT SHAPE
   function createShape(position) {
     nextShape = []
@@ -545,8 +565,8 @@ function init() {
       clearInterval(shapeFallId)
       updateHighScore()
       document.querySelector('.done').style.display = 'flex'
-      document.querySelector('audio').src = './64940__syna-max__wilhelm-scream.wav'
-      document.querySelector('audio').play()
+      audio.src = './64940__syna-max__wilhelm-scream.wav'
+      audio.play()
     }
   }
   
