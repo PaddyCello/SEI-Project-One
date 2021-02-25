@@ -545,6 +545,8 @@ function init() {
       clearInterval(shapeFallId)
       updateHighScore()
       document.querySelector('.done').style.display = 'flex'
+      document.querySelector('audio').src = './64940__syna-max__wilhelm-scream.wav'
+      document.querySelector('audio').play()
     }
   }
   
