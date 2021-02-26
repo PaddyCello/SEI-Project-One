@@ -92,7 +92,7 @@ function init() {
   //* PLAY AUDIO
   function playAudio() {
     audio.setAttribute('loop', 'true')
-    audio.src = './Shos_5.wav'
+    audio.src = '../Shos_5.wav'
     audio.play()
   }
 
@@ -575,7 +575,7 @@ function init() {
       updateHighScore()
       done.style.display = 'flex'
       audio.removeAttribute('loop')
-      audio.src = './64940__syna-max__wilhelm-scream.wav'
+      audio.src = '../64940__syna-max__wilhelm-scream.wav'
       audio.play()
     }
   }
