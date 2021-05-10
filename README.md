@@ -26,7 +26,7 @@ Apart from the level of challenge, another motivator for building this game was 
 As I knew that this was going to be a detailed task with multiple steps, I began by writing a few pages of pseudocode, starting with a top-level overview of each perceived step, and drilling further and further down in terms of detail until I almost had a set of instructions for myself. After having done this, I made a Trello board and populated it with tickets derived from these instructions. I continued to add to both of these throughout the week; this is due in part to having made a clear distinction between my ultimate goal and my MVP, and having set deadlines for both. 
 My MVP was mainly a pared-down, unstyled interpretation of the final product, with no speed increases or audio. I had four tetriminoes instead of seven (and all uniformly coloured), and a 7x15 grid instead of 11x20, knowing that expanding all of these things later would be pretty straightforward. I also made a point of displaying the numbers of the cells of the grid, as this would help with visualizing the movements and rotations of the shapes. As mentioned earlier, I was forbidden from using HTML Canvas to make my grid - instead, I had to use a for loop to create a grid of flex-wrapped divs within a larger container:
 
-```
+```javascript
   const width = 11
   const height = 20
   const gridArea = width * height
@@ -34,7 +34,7 @@ My MVP was mainly a pared-down, unstyled interpretation of the final product, wi
   const cells = []
 ```
 
-```
+```javascript
 function makeGrid() {
     for (let i = 0; i < gridArea; i++) {
       const cell = document.createElement('div')
