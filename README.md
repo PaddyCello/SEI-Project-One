@@ -49,7 +49,7 @@ function makeGrid() {
 The illusion of tetrimino movement is created by adding and removing classes to cells, in the configuration of whichever tetrimino is currently in play. 
 After reaching MVP, I then proceeded to add the additional features in order of preference. My immediate intentions were to build out the number of shapes, the grid size, and the range of colours; then to add more styling (using a box shadow to give a 3D feel to the tetrimino squares was a particular win):
 
-```
+```css
 .tetrimino {
   background-color: #dabc12;
   box-shadow: inset 3px 3px 2px #e4e3e3, inset -3px -3px 2px #504f4f;
@@ -58,7 +58,7 @@ After reaching MVP, I then proceeded to add the additional features in order of 
 
 Another big priority was to get my grain filter working. I did this with a bit of CSS animation, overlaying a larger filter over a smaller one (the larger one being substantially larger than the screen size), and moving the larger one around:
 
-```
+```css
 .grain {
   background-image: url('https://image.freepik.com/free-vector/grainy-overlay-texture_1102-1186.jpg');
   opacity: 0.4;
