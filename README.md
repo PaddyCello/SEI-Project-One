@@ -99,7 +99,7 @@ After this, I added the gradual speed increase, the aggregate scoring, the high 
 
 The project, for the most part, went pretty smoothly - however, there were still a few obstacles. One of the biggest ones involved the rotation of the shapes, which I had assigned to the space bar. Rather than rotate properly, the shape would instead duplicate and begin descending from the original departure point on the grid! This bothered both me and the teaching assistants that I consulted for about two days. Eventually, we discovered that a keyup event on the space bar will also trigger onclick events - and specifically, the onclick event on the button that would start the game! It turned out that one line of code, disabling the button after it had been clicked, would solve the problem.
 
-```
+```javascript
 document.querySelector('button').disabled = 'true'
 ```
 
